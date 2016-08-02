@@ -1,0 +1,20 @@
+{
+  "name": "angularjs-demo",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "bakerz <de1719@163.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/bakerz/angularjs-demo",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#^1.5.8"
+  }
+}
