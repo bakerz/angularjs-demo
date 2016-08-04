@@ -1,0 +1,14 @@
+for (var i=0; i<len; i++) {
+  html = '<ul>'
+    += '<li>'+ data[i] +'</li>'
+    += '</ul>';
+}
+
+$(document).html(html);
+
+var object = {'name':'xxx',age:12};
+$scope.obj.push(object);
+
+<ul>
+`<li ng-repeat="o in obj">{{o.name}} - {{o.age}}</li>
+</ul>
