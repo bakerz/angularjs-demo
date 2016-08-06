@@ -9,6 +9,8 @@ $scope.datas = [
   </tr>
 </table>
 
+ng-repeat 值就是 id，所以会报错
+
 $scope.isShow = true;
 
 $scope.datas = [
@@ -21,3 +23,5 @@ $scope.datas = [
     <td ng-repeat="col in row" ng-if="isShow">{{ col }}-({{$parent.$index}}, {{$index}})</td>
   </tr>
 </table>
+
+ng-repeat 产生一个新的 scope 空间
