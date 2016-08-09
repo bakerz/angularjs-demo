@@ -8,3 +8,27 @@ $scope.item1 = true;
 $scope.item2 = false;
 $scope.item3 = true;
 <div ng-class="{'fir':item1,'sec':item2,'ter':item3}"></div>
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
+</head>
+<body>
+<div class="container" ng-app="myApp" ng-controller="myCtrl">
+	<textfold></textfold>
+	<hr />
+
+	<expander class='expander' expander-title='title'>
+		{{text}}
+	</expander>
+</div>
+
+<script type="text/javascript" src="../scripts/demo03Ctrl.js"></script>
+</body>
+</html>
