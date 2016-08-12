@@ -9,7 +9,7 @@ $scope.datas = [
   </tr>
 </table>
 
-ng-repeat 值就是 id，所以会报错
+ng-repeat 值就是 id
 
 $scope.isShow = true;
 
@@ -27,7 +27,3 @@ $scope.datas = [
 ng-if 产生一个新的 scope 空间
 
 
-$scope.datas = {1,2,3,4,5,6}
-<select ng-model='datas'>
-  <option value={{d.key}} ng-repeat="d in datas">{{ d.datas }}</option>
-</select>
