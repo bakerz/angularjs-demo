@@ -30,4 +30,4 @@ $scope.datas = [
    <option value="t.key" ng-repeat="t in data.type">{{t.key}}</option>
  </select>
 
- 
+ <pagination total-items="vm.items|filter:vm.filter|size" ng-model="vm.page.index" max-size="5" items-per-page="vm.page.size" class="pagination-sm pull-right" boundary-links="true"></pagination>
