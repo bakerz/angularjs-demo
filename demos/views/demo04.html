@@ -1,18 +1,3 @@
-for (var i=0; i<len; i++) {
-  html = '<ul>'
-    += '<li>'+ data[i] +'</li>'
-    += '</ul>';
-}
-
-$(document).html(html);
-
-var object = {'name':'xxx',age:12};
-$scope.obj.push(object);
-
-<ul>
-<li ng-repeat="o in obj">{{o.name}} - {{o.age}}</li>
-</ul>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,11 +5,34 @@ $scope.obj.push(object);
     <script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
 </head>
 <body>
-    <div class="container" ng-app="" ng-controller>
-        
+    <div class="container" ng-app="myApp" ng-controller="ctrl">
+        <ul>
+            <li ng-repeat="o in obj">{{o.name}}: {{o.age}}</li>
+        </ul>
+
+        <button ng-click="add()">add</button>
+        <button ng-click="sub()">sub</button>
     </div>
     <script>
-        angular.module('')
+        angular.module('myApp', [])
+        .controller('ctrl', function($scope) {
+            $scope.obj = [{
+                'name': 'jack',
+                'age': 12
+            },{
+                'name': 'mike',
+                'age': 10
+            }];
+
+            $scope.add = function () {
+                var object = {'name':'xxx',age:12};
+                $scope.obj.push(object); 
+            };
+
+            $scope.sub = function () {
+                $scope.obj.pop(); 
+            };
+        });
     </script>
 </body>
 </html>
