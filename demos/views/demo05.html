@@ -1,58 +1,91 @@
-$scope.datas = [
-    [1,1,1],
-    [4,5,6]
- ];
- 
- <table>
-   <tr ng-repeat="row in datas">
-     <td ng-repeat="col in row track by $index">{{ col }}</td>
-   </tr>
- </table>
- 
-那么angularjs 会报错，不允许值重复，原因是angular需要一个唯一值可以与生成的dom绑定，以便追踪。
- 
- $scope.isShow = true;
- 
- $scope.datas = [
-   [1,2,3],
-   [4,5,6]
- ];
- 
- <table>
-   <tr ng-repeat="row in datas">
-     <td ng-repeat="col in row" ng-if="isShow">{{ col }}-({{$parent.$index}}, {{$index}})</td>
-   </tr>
- </table>
- 
- ng-if 产生一个新的 scope 空间
- 
- <select ng-model="data">
-   <option value="t.key" ng-repeat="t in data.type">{{t.key}}</option>
- </select>
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
+</head>
+<body ng-app="myApp">
+  <div ng-controller="myCtrl">
+  datas 的数据结构为 {{datas}}，angularJS 会报错，ngRepeat不允许collection中存在两个相同Id的对象，angular需要一个唯一值可以与生成的dom绑定，以便追踪。
+  <br>
+  对于数字对象来说，它的id就是它自身的值，因此，数组中是不允许存在两个相同的数字的。为了规避这个错误，需要定义自己的track by表达式
+  (ps: 相同的数字或者字符串都会产生这个错误，js的对象类型，就算内容一模一样，ngRepeat 也不会认为是相同的对象，所以不会报错)
+    <table>
+      <tr ng-repeat="row in datas">
+        <td ng-repeat="col in row track by $index">{{ col }}</td>
+      </tr>
+    </table>
+    <hr>
 
- <pagination 
- total-items="vm.items|filter:vm.filter|size" 
- ng-model="vm.page.index" 
- max-size="5" 
- items-per-page="vm.page.size" 
- class="pagination-sm pull-right" 
- boundary-links="true"></pagination>
- 
- total-items - 所有页中的项目总数
- max-size - 最大显示页数
- items-per-page - 每页最大显示条数的数量。值小于1表明所有项目在一个页上
- boundary-links - 是否显示第一个/最后一个按钮
+    遍历对象 key/value {{obj}}
+    <div ng-repeat="(key, value) in obj">{{key}}:　{{value}}</div>
+    <hr>
 
+    ng-if 会创建一个新的 $scope 空间
+    <table>
+      <tr>
+        <td colspan="3">使用ng-if</td>
+      </tr>
+      <tr ng-repeat="row in datas2">
+        <td ng-repeat="col in row" ng-if="isShow">{{ col }}-({{$parent.$index}}, {{$index}})</td>
+      </tr>
+      <tr>
+        <td colspan="3">使用ng-show</td>
+      </tr>
+      <tr ng-repeat="row in datas2">
+        <td ng-repeat="col in row" ng-show="isShow">{{ col }}-({{$parent.$index}}, {{$index}})</td>
+      </tr>
+    </table>
+    <hr>
 
-boundary-link-numbers $ C (Default: false) - 是否总是显示第一个和最后一个页码。如果最大页码大于设置的最小显示页数,则会在最大或最小页面和中间页面之间增加一个按钮，内容为省略号，如果最大页码小于设置的最小显示页数，则不显示省略号按钮
+    pagination
+    total-items - 所有页中的项目总数
 
-direction-links $ C (Default: true) - 是否显示之前/下一个按钮。
+    max-size - 最大显示页数
+    
+    items-per-page - 每页最大显示条数的数量。值小于1表明所有项目在一个页上
+    
+    boundary-links - 是否显示第一个/最后一个按钮
 
+    boundary-link-numbers $ C (Default: false) - 是否总是显示第一个和最后一个页码。如果最大页码大于设置的最小显示页数,则会在最大或最小页面和中间页面之间增加一个按钮，内容为省略号，如果最大页码小于设置的最小显示页数，则不显示省略号按钮
 
+    direction-links $ C (Default: true) - 是否显示之前/下一个按钮。
+    <pagination 
+    total-items="vm.items|filter:vm.filter|size" 
+    ng-model="vm.page.index" 
+    max-size="5" 
+    items-per-page="vm.page.size" 
+    class="pagination-sm pull-right" 
+    boundary-links="true"></pagination>
+  </div>
+</body>
 
+<script type="text/javascript">
+  angular.module('myApp', [])
+  .controller('myCtrl', function($scope) {
+    $scope.datas = [
+      [1,1,1],
+      [4,5,6],
+      ['qqq','qqq','qqq'],
+      [{'name':'xx','age':11},{'name':'xx','age':11},{'name':'xx','age':11}]
+    ];
+
+    $scope.obj = {'name':'xxx','age':12,'status':true};
+
+    $scope.isShow = true;
+    $scope.datas2 = [
+      [1,2,3],
+      [4,5,6]
+    ];
+  });
+</script>
+</html>
+ <!-- 
 
 Example with 1 argument  
 $scope.master = angular.copy(user);
 
 Example with 2 argument  
 angular.copy({}, $scope.user);//重置数据的层面放在此处，此处将一个空对象{}深拷贝到user中，可以根据需求放入原来的模型。
+ -->
