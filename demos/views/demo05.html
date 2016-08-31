@@ -41,23 +41,25 @@
 
     pagination
     total-items - 所有页中的项目总数
+    <br>
 
     max-size - 最大显示页数
-    
+    <br>
+
     items-per-page - 每页最大显示条数的数量。值小于1表明所有项目在一个页上
-    
+    <br>
+
     boundary-links - 是否显示第一个/最后一个按钮
+    <br>
 
     boundary-link-numbers $ C (Default: false) - 是否总是显示第一个和最后一个页码。如果最大页码大于设置的最小显示页数,则会在最大或最小页面和中间页面之间增加一个按钮，内容为省略号，如果最大页码小于设置的最小显示页数，则不显示省略号按钮
+    <br>
 
     direction-links $ C (Default: true) - 是否显示之前/下一个按钮。
-    <pagination 
-    total-items="vm.items|filter:vm.filter|size" 
-    ng-model="vm.page.index" 
-    max-size="5" 
-    items-per-page="vm.page.size" 
-    class="pagination-sm pull-right" 
-    boundary-links="true"></pagination>
+    <br>
+    <pagination total-items="vm.items|filter:vm.filter|size" ng-model="vm.page.index" max-size="5"
+                items-per-page="vm.page.size"
+                class="pagination-sm pull-right" boundary-links="true"></pagination>
   </div>
 </body>
 
@@ -78,14 +80,35 @@
       [1,2,3],
       [4,5,6]
     ];
+
+    //pagination
+    var vm = $scope.vm = {};
+    vm.page = {
+        size: 5,
+        index: 1
+    };
+    // 供页面中使用的函数
+    vm.age = function(birthday) {
+        return moment().diff(birthday, 'years');
+    };
+
+    vm.items = [];
+    var MAX_NUM = 10 * 1000;
+    function rand(min, max) {
+        return min + Math.round(Math.random() * (max-min));
+    }
+    for (var i = 0; i < MAX_NUM; ++i) {
+        var id = rand(0, MAX_NUM);
+        vm.items.push({
+            id: i + 1,
+            name: 'Name' + id, // 字符串类型
+            followers: rand(0, 100 * 1000 * 1000), // 数字类型
+            //birthday: moment().subtract('day', rand(365, 365 * 50)).toDate(), // 日期类型
+            summary: '这是一个测试' + i,
+            income: rand(1000, 100000) // 金额类型
+        });
+    }
+
   });
 </script>
 </html>
- <!-- 
-
-Example with 1 argument  
-$scope.master = angular.copy(user);
-
-Example with 2 argument  
-angular.copy({}, $scope.user);//重置数据的层面放在此处，此处将一个空对象{}深拷贝到user中，可以根据需求放入原来的模型。
- -->
