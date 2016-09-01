@@ -57,6 +57,10 @@
 
     direction-links $ C (Default: true) - 是否显示之前/下一个按钮。
     <br>
+    numPages - 总页数， {{vm.page.index}} / {{numPages}}
+
+
+    <br>
     <pagination total-items="vm.items|filter:vm.filter|size" ng-model="vm.page.index" max-size="5"
                 items-per-page="vm.page.size"
                 class="pagination-sm pull-right" boundary-links="true"></pagination>
