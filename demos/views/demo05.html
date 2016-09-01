@@ -65,15 +65,21 @@
     <section class="row">  
         <section class="col-md-6" style="margin:40px auto; float:none; background:#fff; padding:30px;">  
             <h4>默认：</h4>  
-            <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" previous-text="上一页" next-text="下一页"></pagination> //total-items 总页数 previous-text 上一页文本,   
-            <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"> //boundary-links 是否显示首尾按钮    
-            </pagination>  
-            <pagination direction-links="true" boundary-links="true" total-items="totalItems" ng-model="currentPage"></pagination> // direction-links 是否显示上下按钮   
-            <pagination direction-links="false" total-items="totalItems" ng-model="currentPage" num-pages="smallnumPages"></pagination>  // num-pages 显示总数的可选表达式  
-            <pre>当前页：{{currentPage}}</pre> //取值  
-            <hr>  
-            <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination> // max-size  显示最大页数  
-   
+            <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" previous-text="上一页" next-text="下一页"></pagination> 
+
+            <p>//total-items 总页数 previous-text 上一页文本,//boundary-links 是否显示首尾按钮    </p>
+            <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+
+            <p>// direction-links 是否显示上下按钮</p>
+            <pagination direction-links="true" boundary-links="true" total-items="totalItems" ng-model="currentPage"></pagination>
+
+            <p>// num-pages 显示总数的可选表达式</p>
+            <pagination direction-links="false" total-items="totalItems" ng-model="currentPage" num-pages="smallnumPages"></pagination> 
+
+            <pre>当前页：{{currentPage}}</pre>
+            
+            <p>// max-size  显示最大页数</p>
+            <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination> 
             <pre>当前：{{bigCurrentPage}}/{{numPages}}</pre>  
         </section>  
    
