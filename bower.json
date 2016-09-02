@@ -16,5 +16,8 @@
   ],
   "dependencies": {
     "angular": "angularjs#^1.5.8"
+  },
+  "devDependencies": {
+    "angular-bootstrap": "^2.1.3"
   }
 }
