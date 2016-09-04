@@ -4,7 +4,8 @@
   <title></title>
   <meta charset="utf-8">
   <script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
-  <script type="text/javascript" src="../../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="../../bower_components/angular-bootstrap/ui-bootstrap-csp.css">
 </head>
 <body ng-app="myApp">
@@ -83,8 +84,8 @@
   </div>
 </body>
 <script>
-    angular.module('myApp', [])
-    .controller('myCtrl', function($scope) {
+    angular.module('myApp', ['ui.bootstrap'])
+    .controller('myCtrl', function($scope, $window) {
         $scope.tabs = [
             { title:'Dynamic Title 1', content:'Dynamic content 1' },
             { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
