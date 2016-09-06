@@ -9,6 +9,29 @@
   <link rel="stylesheet" type="text/css" href="../../bower_components/angular-bootstrap/ui-bootstrap-csp.css">
 </head>
 <body ng-app="myApp">
-  <div ng-controller="myCtrl"></div>
+  <div ng-controller="myCtrl">
+    <ui-select ng-model="person.selected" theme="bootstrap">
+        <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
+        <ui-select-choices repeat="item in person | filter: $select.search">
+            <div ng-bind-html="item.name"></div>
+            <small ng-bind-html="item.email"></small>
+        </ui-select-choices>
+    </ui-select>
+  </div>
 </body>
+<script>
+    angular.module('myApp', ['ui.select'])
+    .controller('myCtrl', function($scope){
+        $scope.person = [{
+            'name': 'zhangsan',
+            'email': 'zhnagsan@qq.com'
+        },{
+            'name': 'lisi',
+            'email': 'lisi@qq.com'
+        },{
+            'name': 'wanger',
+            'email': 'wanger@qq.com'
+        }]
+    })
+</script>
 </html>
