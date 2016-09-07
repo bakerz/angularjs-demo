@@ -4,17 +4,19 @@
   <title></title>
   <meta charset="utf-8">
   <script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
-  <script type="text/javascript" src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <!-- <script type="text/javascript" src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script> -->
+  <script type="text/javascript" src="../../bower_components/angular-ui-select/dist/select.js"></script>
   <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="../../bower_components/angular-bootstrap/ui-bootstrap-csp.css">
+  <link rel="stylesheet" type="text/css" href="../../bower_components/angular-ui-select/dist/select.min.css">
+  <!-- <link rel="stylesheet" type="text/css" href="../../bower_components/angular-bootstrap/ui-bootstrap-csp.css"> -->
 </head>
 <body ng-app="myApp">
   <div ng-controller="myCtrl">
     <ui-select ng-model="person.selected" theme="bootstrap">
         <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
         <ui-select-choices repeat="item in person | filter: $select.search">
-            <div ng-bind-html="item.name"></div>
-            <small ng-bind-html="item.email"></small>
+            <div ng-bind-html="item.name | highlight: $select.search"></div>
+            <small ng-bind-html="item.email | highlight: $select.search"></small>
         </ui-select-choices>
     </ui-select>
   </div>
