@@ -82,6 +82,16 @@
   Nested Form:
   <pre>{{ outerForm.nestedForm | json }}</pre>
   </div>
+
+  <hr>
+  <h1>CodeMirror Demo</h1>
+  <uib-tabset>
+    <uib-tab index="1" heading="Tab One">Tab One</uib-tab>
+    <uib-tab index="2" heading="CodeMirror">
+        <textarea cols="30" rows="10"></textarea>
+    </uib-tab>
+    <uib-tab index="2" heading="Echarts"></uib-tab>
+  </uib-tabset>
 </body>
 <script>
     angular.module('myApp', ['ui.bootstrap'])
