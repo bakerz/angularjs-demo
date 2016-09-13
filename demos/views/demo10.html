@@ -7,6 +7,12 @@
   <script type="text/javascript" src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="../../bower_components/angular-bootstrap/ui-bootstrap-csp.css">
+
+
+  <link rel="stylesheet" type="text/css" href="../../bower_components/codemirror/lib/codemirror.css">
+  <script type="text/javascript" src="../../bower_components/codemirror/lib/codemirror.js"></script>
+  <script type="text/javascript" src="../../bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+  <script type="text/javascript" src="../../bower_components/codemirror/mode/yaml/yaml.js"></script>
 </head>
 <body ng-app="myApp">
   <div ng-controller="myCtrl">
@@ -86,15 +92,32 @@
   <hr>
   <h1>CodeMirror Demo</h1>
   <uib-tabset>
-    <uib-tab index="1" heading="Tab One">Tab One</uib-tab>
-    <uib-tab index="2" heading="CodeMirror">
+    <uib-tab index="0" heading="Tab One">
+      dsadasdasd
+    </uib-tab>
+    <uib-tab index="1" heading="CodeMirror">
         <textarea cols="30" rows="10"></textarea>
     </uib-tab>
-    <uib-tab index="2" heading="Echarts"></uib-tab>
+    <uib-tab index="2" heading="ui-codemirror">
+      <div class="col-md-12">
+        <div ui-codemirror="{
+      lineNumbers: true,
+      theme:'twilight',
+      lineWrapping : true,
+      mode: 'xml'
+    }" ></div>
+      </div>
+    </uib-tab>
+    <uib-tab index="3" heading="ui-ace"></uib-tab>
+    <uib-tab index="4" heading="Echarts"></uib-tab>
+    <uib-tab index="5" heading="ui-chart"></uib-tab>
   </uib-tabset>
 </body>
+<div class="col-md-12" style="border: 1px solid #000;">
+  
+</div>
 <script>
-    angular.module('myApp', ['ui.bootstrap'])
+    angular.module('myApp', ['ui.bootstrap', 'ui.codemirror'])
     .controller('myCtrl', function($scope, $window) {
         $scope.tabs = [
             { title:'Dynamic Title 1', content:'Dynamic content 1' },
@@ -109,6 +132,14 @@
 
         $scope.model = {
             name: 'Tabs'
+        };
+
+        //////////////////////////////////
+        $scope.editorOptions = {
+            lineWrapping : true,
+            lineNumbers: true,
+            readOnly: 'nocursor',
+            mode: 'application/yaml',
         };
     });
 </script>
