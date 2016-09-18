@@ -5,14 +5,15 @@
   <meta charset="utf-8">
   <script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
   <script type="text/javascript" src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="../../bower_components/angular-bootstrap/ui-bootstrap-csp.css">
 
 
-  <link rel="stylesheet" type="text/css" href="../../bower_components/codemirror/lib/codemirror.css">
   <script type="text/javascript" src="../../bower_components/codemirror/lib/codemirror.js"></script>
   <script type="text/javascript" src="../../bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
   <script type="text/javascript" src="../../bower_components/codemirror/mode/yaml/yaml.js"></script>
+  <script type="text/javascript" src="../../bower_components/codemirror/mode/javascript/javascript.js"></script>  
+  <link rel="stylesheet" type="text/css" href="../../bower_components/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../../bower_components/angular-bootstrap/ui-bootstrap-csp.css">
 </head>
 <body ng-app="myApp">
   <div ng-controller="myCtrl">
@@ -96,7 +97,7 @@
       dsadasdasd
     </uib-tab>
     <uib-tab index="1" heading="CodeMirror">
-        <textarea id="codemirror"></textarea>
+        <textarea id="codemirror-textarea"></textarea>
     </uib-tab>
     <uib-tab index="2" heading="ui-codemirror">
       <div class="col-md-12">
@@ -131,7 +132,11 @@
 
         //////////////////////////////////
         // codemirror
-        var myCodemirror = CodeMirror(document.getElementById('codemirror'));
+        var myTextarea = document.getElementById('codemirror-textarea');
+        var myCodemirror = CodeMirror(myTextarea, {
+          mode: 'javascript',
+          lineNumbers: true
+        });
         // ui-codemirror
         $scope.editorOptions = {
             lineWrapping : true,
