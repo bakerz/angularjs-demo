@@ -97,11 +97,9 @@
       dsadasdasd
     </uib-tab>
     <uib-tab index="1" heading="CodeMirror">
-        <textarea id="codemirror-textarea"></textarea>
     </uib-tab>
     <uib-tab index="2" heading="ui-codemirror">
       <div class="col-md-12">
-        <textarea ui-codemirror-opts="editorOptions"></textarea>
       </div>
     </uib-tab>
     <uib-tab index="3" heading="ui-ace"></uib-tab>
@@ -132,18 +130,9 @@
 
         //////////////////////////////////
         // codemirror
-        var myTextarea = document.getElementById('codemirror-textarea');
-        var myCodemirror = CodeMirror(myTextarea, {
-          mode: 'javascript',
-          lineNumbers: true
-        });
+       
         // ui-codemirror
-        $scope.editorOptions = {
-            lineWrapping : true,
-            lineNumbers: true,
-            readOnly: 'nocursor',
-            mode: 'yaml',
-        };
+        
     });
 </script>
 </html>
