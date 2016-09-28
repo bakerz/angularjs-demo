@@ -105,20 +105,28 @@
       theme:'twilight',
       lineWrapping : true,
       mode: 'xml'
-    }" ></div>
+    }" ng-model="source" ng-change="parse()"></div>
       </div>
     </uib-tab>
     <uib-tab index="3" heading="ui-ace"></uib-tab>
     <uib-tab index="4" heading="Echarts"></uib-tab>
     <uib-tab index="5" heading="ui-chart"></uib-tab>
   </uib-tabset>
+
+  <button ng-show="{{value1}} && {{value2}}">btn</button>
+
 </body>
 <div class="col-md-12" style="border: 1px solid #000;">
   
 </div>
 <script>
+
+
     angular.module('myApp', ['ui.bootstrap', 'ui.codemirror'])
     .controller('myCtrl', function($scope, $window) {
+        $scope.value1 = true;
+        $scope.value2 = true;
+
         $scope.tabs = [
             { title:'Dynamic Title 1', content:'Dynamic content 1' },
             { title:'Dynamic Title 2', content:'Dynamic content 2', disabled: true }
@@ -140,6 +148,10 @@
             lineNumbers: true,
             readOnly: 'nocursor',
             mode: 'application/yaml',
+        };
+
+        $scope.parse = function() {
+          console.log($scope.source);
         };
     });
 </script>
