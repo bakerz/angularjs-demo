@@ -4,19 +4,24 @@
     <title></title>
     <meta charset="utf-8">
     <script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="../../bower_components/echarts/build/dist/echarts.js"></script>
 </head>
-<!-- <body ng-app="myApp">
-    <div ng-controller="myCtrl">
-        
-    </div>
-</body> -->
-    <div id="main" style="height:400px;"></div>
+<body ng-app="myApp">
+    <div dir-test></div>
+</body>
 <body>
     
 </body>
 <script type="text/javascript">
-    
+    angular.module('myApp', [])
+    .directive('dirTest', function() {
+        return {
+            restrict: 'EA',
+            template: '<div class="test">Directive example</div>',
+            link: function(ecope, elements, attrs) {
+                console.log(elements[0]);
+            }
+        }
+    })
                     
 </script>
 </html>
