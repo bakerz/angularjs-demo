@@ -8,7 +8,7 @@
 <body ng-app="myApp">
     <div ng-controller="myCtrl">
         <button ng-click="addData()">add</button>
-        <div dir-test></div>    
+        <div dir-test='arr'></div>    
     </div>
 </body>
 <body>
@@ -27,8 +27,8 @@
             restrict: 'EA',
             template: '<div class="test">Directive example</div>',
             link: function(scope, element, attrs) {
-                scope.$watch(function() {
-                    return attrs;
+                scope.$watch(attrs.dirTest, function(newValue) {
+                    return newValue;
                 })
             }
         }
