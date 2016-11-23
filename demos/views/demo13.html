@@ -8,7 +8,7 @@
 <body ng-app="myApp">
     <div ng-controller="myCtrl">
         <button ng-click="addData()">add</button>
-        <div dir-test dir-data='arr'></div>    
+        <div dir-test dir-data="arr" refresh-data="refresh"></div>
     </div>
 </body>
 <body>
@@ -20,15 +20,19 @@
         $scope.arr = [];
         $scope.addData = function() {
             $scope.arr.push('xxxxx');
+            $scope.refresh = Date.now();
         }
     }])
     .directive('dirTest', function() {
         return {
             restrict: 'EA',
-            template: '<div class="test">Directive example</div>',
+            template: '<div class="test">{{data}}</div>',
             link: function(scope, element, attrs) {
-                scope.$watch(attrs.dirData, function(newValue) {
-                    return console.log(newValue);
+                scope.$watch(attrs.refreshData, function(newValue) {
+                    if (newValue) {
+                        console.log(attrs.dirData);
+                        scope.data = attrs.dirData;
+                    }
                 })
             }
         }

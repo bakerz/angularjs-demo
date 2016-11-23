@@ -84,10 +84,21 @@
                               ng-show="myForm.url.$dirty && myForm.url.$valid"></span>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="col-md-4"> 8. Radio</div>
+                    <div class="col-md-8">
+                        <label class="radio-inline">
+                            <input type="radio" name="radio" ng-model="user.radio" value="ip_hash" ng-click="switchLoadBalance()" required>开启
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="radio" ng-model="user.radio" value="#ip_hash" ng-click="switchLoadBalance()" required>关闭
+                        </label>
+                    </div>
+                </div>
                 <div class="form-group  text-center">
                     <input class="btn btn-primary btn-lg" ng-disabled="myForm.$invalid" type="submit" value="提交" />
                 </div>
-            </form>       
+            </form>
         </div>
         <div class="col-md-12">
             1.必填项:{{user.name}}&nbsp;&nbsp;
@@ -133,6 +144,12 @@
             $invalid【验证失败】：{{myForm.url.$invalid}}&nbsp;&nbsp;
             $valid【验证成功】：{{myForm.url.$valid}}&nbsp;&nbsp;
             $error【错误详情】：{{myForm.url.$error}}&nbsp;&nbsp;<br>
+            8.Radio: {{user.radio}}
+            $pristine 【没修改】：{{myForm.radio.$pristine }}&nbsp;&nbsp;
+            $dirty【修改过】：{{myForm.radio.$dirty}}&nbsp;&nbsp;
+            $invalid【验证失败】：{{myForm.radio.$invalid}}&nbsp;&nbsp;
+            $valid【验证成功】：{{myForm.radio.$valid}}&nbsp;&nbsp;
+            $error【错误详情】：{{myForm.radio.$error}}&nbsp;&nbsp;<br>
         </div>
     </body>
 </html>
@@ -144,6 +161,9 @@
                     alert('验证失败');
                 }
             };
+            $scope.user = {};
+
+            $scope.user.radio = '#ip_hash';
         }
         );
 </script>
