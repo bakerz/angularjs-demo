@@ -88,7 +88,7 @@
   <pre>{{ model | json }}</pre>
   Nested Form:
   <pre>{{ outerForm.nestedForm | json }}</pre>
-  </div>
+ 
 
   <hr>
   <h1>CodeMirror Demo</h1>
@@ -114,11 +114,10 @@
 
 <hr>
 
-<textarea ui-codemirror="cmOption" ng-model="cmModel"></textarea>
+<ui-codemirror ui-codemirror-opts="cmOption"></ui-codemirror>
 
-
+ </div>
 <script>
-
 
     angular.module('myApp', ['ui.bootstrap', 'ui.codemirror'])
     .controller('myCtrl', function($scope, $window) {
@@ -178,6 +177,7 @@
     'function foo(msg) {\n\tvar r = Math.random();\n\treturn "" + r + " : " + msg;\n}';
     });
 </script>
+
 
 </body>
 
