@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>angular drag</title>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+   
+
+    <script type="text/javascript" src='../bower_components/codemirror/lib/codemirror.js'></script>
+    <script type="text/javascript" src='../bower_components/angular-ui-codemirror/ui-codemirror.js'></script>
+    <script type="text/javascript" src='../bower_components/codemirror/mode/yaml/yaml.js'></script>
+    <script type="text/javascript" src='../public/javascripts/zxx.drag.1.0.js'></script>
+
+    <link rel="stylesheet" type="text/css" href="../bower_components/codemirror/lib/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../bower_components/angular-bootstrap/ui-bootstrap-csp.css">
+
+</head>
+<body ng-app="myApp">
+<div class="container-fluid" ng-controller="myCtrl">
+    <style type="text/css">
+        .droptarget {
+            float: left;
+            width: 100px; 
+            height: 100px;
+            margin: 15px;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+        }
+        #dragtarget {
+            border: 1px solid #ccc;
+            cursor: move;
+        }
+    </style>
+    <div class="row">
+        <div class="droptarget" ondrop="dropDome(event)" ondragover="allowDropDome(event)">
+            <p ondragstart="dragStartDome(event)" ondragend="dragEndDome(event)" draggable="true" id="dragtarget">
+                拖动!
+            </p>
+        </div>
+        <div class="droptarget" ondrop="dropDome(event)" ondragover="allowDropDome(event)"></div>
+        <p id="demo"></p>
+    </div>
+    <script>
+        function dragStartDome(event) {
+            event.dataTransfer.setData("Text", event.target.id);
+            document.getElementById("demo").innerHTML = "开始拖动 p 元素";
+        }
+        function dragEndDome(event) {
+            document.getElementById("demo").innerHTML = "完成 p 元素的拖动";
+        }
+        function allowDropDome(event) {
+            event.preventDefault();
+        }
+        function dropDome(event) {
+            console.log('drop');
+            event.preventDefault();
+            var data = event.dataTransfer.getData("Text");
+            event.target.appendChild(document.getElementById(data));
+        }
+    </script>
+    <hr>
+
+    <style type="text/css">
+        .destination-area {
+            width: 200px;
+            height: 200px;
+            border: 1px dashed #ccc;
+            line-height: 200px;
+            text-align: center;
+            font-size: 40px;
+            color: #ccc;
+            position: relative;
+        }
+        .drag-item {
+            width: 200px;
+            border: 1px solid #ccc;
+            text-align: center;
+            color: #ccc;
+            cursor: move;
+            position: relative;
+        }
+        .des-area-item {
+            height: 40px;
+            width: 40px;
+            border: 1px dashed #ccc;
+            line-height: 40px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .des-area-indent {
+            height: 40px;
+            width: 40px;
+            border: 1px dashed #ccc;
+            line-height: 40px;
+            margin-left: 40px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .input-item {
+            height: 26px;
+            line-height: 26px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="destination-area" 
+            ondragenter="dragenter(event)" 
+            ondragleave="dragleave(event)" 
+            ondragover="dragover(event)" 
+            ondrop="drop(event)"> + </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="drag-item" draggable="true" 
+            ondragstart="dragstart(event)" 
+            ondragend="dragend(event)">
+                <div> + </div>
+                <input type="" name="" placeholder="<?>">
+                    <div> + </div>
+                <input type="" name="" placeholder="</?>">
+                <div> + </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    function dragstart(event) {
+        console.log('start');
+    };
+
+    function dragend(event) {
+        console.log('end');
+    };
+
+    function dragenter(event) {
+        console.log(event.target, 'enter');
+        event.target.style.border = '2px dashed #000';
+    };
+
+    function dragleave(event) {
+        console.log('leave');
+        event.target.style.border = '1px dashed #ccc';
+    };
+
+    function dragover(event) {
+        console.log('over');
+        event.preventDefault();
+    };
+
+    function drop(event) {
+        event.target.style.border = 'none';
+        event.target.style.lineHeight = '0px';
+        event.target.style.height = 'auto';
+        event.target.style.width = 'auto';
+        event.target.style.textAlign = 'left';
+        console.log(event, 'shenmeqingkuang???====drop');
+        event.target.innerHTML = '<div class="des-area-item" ondragenter="dragenter(event)" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"> + </div>'+
+            '<input type="" name="" placeholder="<?>" class="input-item" ng-model="elemNamePrefix">'+
+                '<div class="des-area-indent" ondragenter="dragenter(event)" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"> + </div>'+
+            '<input type="" name="" placeholder="</?>" class="input-item" ng-model="elemNameSuffix" disabled="disabled">'+
+            '<div class="des-area-item" ondragenter="dragenter(event)" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"> + </div>';
+        event.target.ondragenter = null;
+        event.target.ondragover = null;
+        event.target.ondragleave = null;
+        event.target.ondrop = null;
+    }
+
+    </script>
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-8">
+            <div target-item></div>
+        </div>
+        <div class="col-sm-4">
+            <div drag-item></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        angular.module('myApp', ['ui.bootstrap', 'ui.codemirror'])
+        .controller('myCtrl', function($scope) {
+
+        })
+        .directive('targetItem', function() {
+            return {
+                restrict: 'A',
+                replace: true,
+                template: '<div class="destination-area"'+
+                    '> + </div>',
+                link: function(scope, elem, attrs) {
+                    var dragenter = function(event) {
+                        console.log('dir-enter');
+                        event.target.style.border = '2px dashed #000';
+                    };
+
+                    var dragleave = function(event) {
+                        console.log('dir-leave');
+                        event.target.style.border = '1px dashed #ccc';
+                    };
+
+                    var dragover = function(event) {
+                        console.log('dir-over');
+                        event.preventDefault();
+                    };
+
+                    var drop = function(drop) {
+                        event.target.style.border = 'none';
+                        event.target.style.lineHeight = '0px';
+                        event.target.style.height = 'auto';
+                        event.target.style.width = 'auto';
+                        event.target.style.textAlign = 'left';
+                        event.target.innerHTML = '<div class="des-area-item" ondragenter="dragenter(event)" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"> + </div>'+
+                            '<div class="input-item">'+scope.elemNameSuffix+'</div>'+
+                                '<div class="des-area-indent" ondragenter="dragenter(event)" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"> + </div>'+
+                            '<div class="input-item">'+scope.elemNamePrefix+'</div>'+
+                            '<div class="des-area-item" ondragenter="dragenter(event)" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"> + </div>';
+                        event.target.ondragenter = null;
+                        event.target.ondragover = null;
+                        event.target.ondragleave = null;
+                        event.target.ondrop = null;
+                    };
+                    elem.bind('dragenter', dragenter)
+                        .bind('dragleave', dragleave)
+                        .bind('dragover', dragover)
+                        .bind('drop', drop)
+                }
+            }
+        })
+        .directive('dragItem', function() {
+            return {
+                restrict: 'A',
+                replace: true,
+                template: '<div class="drag-item" draggable="true">'+
+                        '<div> + </div>'+
+                        '<input type="text" placeholder="<?>" class="input-item" ng-model="elemNamePrefix">'+
+                            '<div> + </div>'+
+                        '<input type="text" placeholder="</?>" class="input-item" ng-model="elemNameSuffix" disabled="disabled">'+
+                        '<div> + </div>'+
+                    '</div>',
+                link: function(scope, elem, attrs) {
+                    var dragstart = function(event) {
+                        console.log('dir-start');
+                    };
+
+                    var dragend = function(event) {
+                        console.log('dir-end');
+                    };
+
+                    elem.bind('dragstart', dragstart)
+                        .bind('dragend', dragend);
+                    scope.$watch('elemNamePrefix', function(newVal, oldVal, scope) {
+                        if (newVal != oldVal) {
+                            console.log(333);
+                            scope.elemNameSuffix = newVal.replace('<','</');
+                        }
+                    })
+                }
+            }
+        });
+    </script>
+</div>
+
+<!-- <div id="demo1">
+  <ul class="panel-list">
+    <li class="panel-item"></li>
+    <li class="panel-item"></li>
+    <li class="panel-item"></li>
+    <li class="panel-item"></li>
+    <li class="panel-item"></li>
+  </ul>
+  <h2>拖拽下面的方块到上面任意容器中</h2>
+
+
+  <span class="movable" id="demo1-src" draggable="true"></span>
+
+  <style>
+  #demo1 {
+    margin: 20px;
+  }
+  #demo1 .panel-list {
+    overflow: hidden;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  #demo1 .panel-item {
+    float: left;
+    margin-right: 30px;
+    width: 100px;
+    height: 100px;
+    background: #ddd;
+    border: 1px solid #ddd;
+  }
+  #demo1-src {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: purple;
+  }
+  #demo1 .over {
+    border: 1px dashed #000;
+    -webkit-transform: scale(0.8, 0.8);
+  }
+  </style>
+  <script>
+  (function () {
+
+    var dnd = {
+      // 初始化
+      init: function () {
+        var me = this;
+        me.src = document.querySelector('#demo1-src');
+        me.panelList = document.querySelector('.panel-list');
+
+        // 为拖拽源监听dragstart,设置关联数据
+        me.src.addEventListener('dragstart', me.onDragStart, false);
+
+        // 拖拽鼠标移入元素,在拖放目标上设置视觉反馈
+        me.panelList.addEventListener('dragenter', me.onDragEnter, false);
+
+        // 取消元素dragover默认行为,使其可拖放
+        me.panelList.addEventListener('dragover', me.onDragOver, false);
+
+        // 拖拽移出元素,清除视觉反馈
+        me.panelList.addEventListener('dragleave', me.onDragLeave, false);
+
+        // 鼠标释放,在拖放目标上接收数据并处理
+        me.panelList.addEventListener('drop', me.onDrop, false);
+      },
+      onDragStart: function (e) {
+        e.dataTransfer.setData('text/plain', 'demo1-src');
+      },
+      onDragEnter: function (e) {
+        if (e.target.classList.contains('panel-item')) {
+          e.target.classList.add('over');
+        }
+      },
+      onDragLeave: function (e) {
+        if (e.target.classList.contains('panel-item')) {
+          e.target.classList.remove('over');
+        }
+      },
+      onDragOver: function (e) {
+        e.preventDefault();
+      },
+      onDrop: function (e) {
+        console.log('drop');
+        var id = e.dataTransfer.getData('text/plain');
+        var src = document.getElementById(id);
+        var target = e.target;
+        if (target.classList.contains('panel-item')) {
+          target.appendChild(src);
+          target.classList.remove('over');
+        }
+      }
+
+    };
+
+    dnd.init();
+  }());
+  </script>
+</div> -->
+</body>
+</html>
