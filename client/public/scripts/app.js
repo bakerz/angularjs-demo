@@ -9,23 +9,18 @@ myApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider, $u
     $stateProvider
     .state("pageTab", {
         url: "/pageTab",
-        views: {
-            'container': {
-                templateUrl: "../../views/pageTab.html"
-            }
-        }
+        templateUrl: "client/views/pageTab.html"
     })
     .state("pageTab.page1", {
         url:"/page1",
-        templateUrl: "page1.html"
+        templateUrl: "client/views/page1.html"
     })
     .state("pageTab.page2", {
         url:"/page2",
-        templateUrl: "page2.html"
+        templateUrl: "client/views/page2.html"
     })
     .state("pageTab.page3", {
         url:"/page3",
-        templateUrl: "page3.html"
+        templateUrl: "client/views/page3.html"
     });
-
 }]);
