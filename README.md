@@ -1,21 +1,27 @@
-# angularjs-demo
+# angularjs demo
 
-angularjs demo
+## Installation/Usage:
 
-# Build
+To try this demo, follow these 4 simple steps.
 
-## step 1
+**Step 1**: Clone this entire repo
+```
+$ git clone https://github.com/bakerz/angularjs-demo.git
+```
 
+**Step 2**: Move into the directory containing this demo
+```
+$ cd angularjs-demo
+```
+
+**Step 3**: Install dependencies
 ```
 $ npm install
 
 $ bowser install
 ```
 
-## step 2
-
+**Step 4**: Run the demo
 ```
-$ cd angularjs-demo
-
-$ browser-sync start --server --files "index.html"
+$ gulp serve
 ```
