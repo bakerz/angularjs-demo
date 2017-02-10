@@ -13,9 +13,10 @@ gulp.task('serve', function() {
         }
     });
 
-    gulp.watch('client/public/styles/scss/*.scss', ['sass']);
+    gulp.watch('client/public/styles/scss/*.scss', ['sass'], reload);
     gulp.watch('*.html').on('change', reload);
     gulp.watch('client/views/*.html').on('change', reload);
+    gulp.watch('client/public/scripts/*.js').on('change', reload);
 });
 
 // scss编译后的css将注入到浏览器里实现更新
@@ -25,5 +26,12 @@ gulp.task('sass', function() {
         .pipe(gulp.dest('client/public/styles/css'))
         .pipe(reload({stream: true}));
 });
+
+/*gulp.task('js', function() {
+    return gulp.src('client/public/scripts/*.js')
+        .pipe(browserify())
+        .pipe(uglify())
+        .pipe(gulp.dest('dist/js'));
+});*/
 
 gulp.task('default', ['serve']);
