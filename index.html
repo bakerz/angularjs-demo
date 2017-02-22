@@ -4,18 +4,24 @@
     <title>AngularJS Demo</title>
     <meta charset="utf-8">
 
-    <link rel="stylesheet" type="text/css" href="client/public/styles/css/style.css">
+    <!-- inject:head:css -->
+    <!-- endinject -->
 
-    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <!-- bower:css -->
+    <!-- endbower -->
 
-    <script type="text/javascript" src="client/public/scripts/route.js"></script>
+    <!-- bower:js -->
+    <!-- endbower -->
+
+    <!-- inject:head:js -->
+    <!-- endinject -->
 </head>
 <body ng-app="myApp">
     <div ui-view="header"></div>
     <div ui-view="nav"></div>
     <div ui-view="content"></div>
 
-    <script type="text/javascript" src="client/public/scripts/demo02Ctrl.js"></script>
+    <!-- inject:body:js -->
+    <!-- endinject -->
 </body>
 </html>

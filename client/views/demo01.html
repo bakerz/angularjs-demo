@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
-</head>
-<body>
-	<div class="container" ng-app="">
-		<p>Input something in the input box:</p>
-		<p>Name : <input type="text" ng-model="str01" placeholder="Enter name here"/></p>
-		<p>Hello {{str01}}</p>
-		<hr />
+<div id='demo01'>
+	<p>Input something in the input box:</p>
+	<p>Name : <input type="text" ng-model="str01" placeholder="Enter name here"/></p>
+	<p>Hello {{str01}}</p>
+	<hr />
 
-		<p>Name: <input type="text" ng-model="str02" ng-init="str02='test'"></p>
-     	<p ng-bind="str02"></p>
-     	<hr />
-	</div>
-</body>
-</html>
+	<p>Name: <input type="text" ng-model="str02" ng-init="str02='test'"></p>
+	<p ng-bind="str02"></p>
+</div>

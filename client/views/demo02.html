@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<meta charset="utf-8">
-	<script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
-</head>
-<body>
-<div class="container" ng-app="myApp" ng-controller="myCtrl">
+<div id="demo02">
 	firstName + lastName = {{ firstName + " " + lastName }}
 	<hr />
 
@@ -27,19 +19,3 @@
 	<button ng-disabled="disabled">点击</button>
 
 </div>
-<script>
-	var app = angular.module('myApp', []);
-	app.controller('myCtrl', function($scope) {
-		$scope.firstName = 'John';
-		$scope.lastName = 'Doe';
-
-		$scope.type = ['类别1','类别2','类别3','类别4'];
-
-	$scope.disabled = true;
-		$scope.change = function (ss) {
-			$scope.disabled = false;
-		}
-	});
-</script>
-</body>
-</html> 

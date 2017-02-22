@@ -1,24 +1,28 @@
-var myApp = angular.module('myApp', ['ui.router']);
+'use strict';
 
-myApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider, $urlRouterProvider) {
+angular.module('myApp', ['ui.router'])
+.config(['$stateProvider','$urlRouterProvider',function ($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider
-    .when('', '/main')
-    .otherwise('main');
+    .when('', '/home')
+    .otherwise('home');
 
     $stateProvider
-    .state('main', {
-        url: '/main',
+    .state('home', {
+        url: '/home',
         views: {
-            'header@': {
+            'header': {
                 templateUrl: 'client/views/header.html'
             },
-            'nav@': {
+            'nav': {
                 templateUrl: 'client/views/nav.html'
+            },
+            'content': {
+                templateUrl: 'client/views/contentDefault.html'
             }
         }
     })
-    .state('main.demo01', {
+    .state('home.demo01', {
         url:'/demo01',
         views: {
             'content@': {
@@ -26,15 +30,16 @@ myApp.config(['$stateProvider','$urlRouterProvider',function ($stateProvider, $u
             }
         }
     })
-    .state('main.demo02', {
+    .state('home.demo02', {
         url:'/demo02',
         views: {
             'content@': {
-                templateUrl: 'client/views/demo02.html'
+                templateUrl: 'client/views/demo02.html',
+                controller: 'demo02Ctrl'
             }
         }
     })
-    .state('main.demo03', {
+    .state('home.demo03', {
         url:'/demo03',
         views: {
             'content@': {

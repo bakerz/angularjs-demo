@@ -29,26 +29,23 @@ gulp.task('sass', function() {
         .pipe(reload({stream: true}));
 });
 
-// 注入 bower 插件
-gulp.task('wiredep', function() {
-    gulp.src('./index.html')
-        .pipe(wiredep({
-            optional: 'configuration',
-            goes: 'here'
-        }))
-        .pipe(gulp.dest('./'));
-});
-
-// 注入 css、javascript
+// 注入 css、javascript、插件
 gulp.task('inject', function() {
     var target = gulp.src('./index.html');
 
-    var sources = gulp.src([
+    var headSources = gulp.src([
         'client/public/styles/css/**/*.css',
-        'client/public/scripts/**/*.js'
+        'client/public/scripts/**/route.js'
         ], {read: false});
 
-    return target.pipe(inject(sources))
+    var bodySources = gulp.src([
+        '!./client/public/scripts/route.js',
+        './client/public/scripts/**/*.js'
+        ], {read: false});
+
+    return target.pipe(inject(headSources, {starttag: '<!-- inject:head:{{ext}} -->'}))
+        .pipe(inject(bodySources, {starttag: '<!-- inject:body:{{ext}} -->'}))
+        .pipe(wiredep())
         .pipe(gulp.dest('./'));
 });
 
