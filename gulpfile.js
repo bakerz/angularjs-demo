@@ -58,4 +58,8 @@ gulp.task('js', function() {
         .pipe(gulp.dest('dist/js'));
 });*/
 
+// 打包 dist
+// 压缩
+// 构建清空
+
 gulp.task('default', ['serve', 'inject']);
