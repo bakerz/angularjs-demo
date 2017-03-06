@@ -195,9 +195,8 @@
             _ace.on('blur', function(e){
                 setTimeout(function(){
                     if ($scope.insertText) {
-                        doc.replaceSelection($scope.insertText);
-                        $scope.insertText = '';
-                        cm.focus();
+                        _ace.insert($scope.insertText);
+                        _ace.focus();
                     }
                 },300);
             })
