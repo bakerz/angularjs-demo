@@ -16,7 +16,7 @@ var path = {
     output: {
         dist: 'dist'
     }
-}
+};
 
 // 静态服务器
 gulp.task('serve', function() {
