@@ -5,6 +5,7 @@ var bs = require('browser-sync').create();
 var sass = require('gulp-sass');
 var wiredep = require('wiredep').stream;
 var inject = require('gulp-inject');
+var rev = require('gulp-rev');
 var reload = bs.reload;
 
 // 路径配置
@@ -22,7 +23,7 @@ var path = {
 gulp.task('serve', function() {
     bs.init({
         server: {
-            baseDir: 'src/'
+            baseDir: 'src'
         }
     });
 
@@ -34,10 +35,23 @@ gulp.task('serve', function() {
     ]).on('change', reload);
 });
 
+// 压缩合并 js
+gulp.task('js', function () {});
+
+// copy
+gulp.task('copy', ['sass'], function () {
+   return  gulp.src([
+           'src/app/**/*.html',
+           'src/app/**/*.js',
+           'src/assets/styles/css/*.css'
+       ]).pipe(gulp.dest('dist'))
+});
+
 // scss编译后的css将注入到浏览器里实现更新
 gulp.task('sass', function() {
     return gulp.src('src/assets/styles/scss/*.scss')
         .pipe(sass())
+        .pipe(rev())
         .pipe(gulp.dest('src/assets/styles/css'))
         .pipe(reload({stream: true}));
 });
@@ -56,10 +70,10 @@ gulp.task('inject', ['sass'], function() {
         'src/app/scripts/**/*.js'
         ], {read: false});
 
-    return target.pipe(inject(headSources, {starttag: '<!-- inject:head:{{ext}} -->'}))
-        .pipe(inject(bodySources, {starttag: '<!-- inject:body:{{ext}} -->'}))
+    return target.pipe(inject(headSources, {starttag: '<!-- inject:head:{{ext}} -->'}, {relative: true}))
+        .pipe(inject(bodySources, {starttag: '<!-- inject:body:{{ext}} -->'}, {relative: true}))
         .pipe(wiredep())
-        .pipe(gulp.dest('src'));
+        .pipe(gulp.dest('dist'));
 });
 
 /*
