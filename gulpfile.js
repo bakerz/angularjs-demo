@@ -11,7 +11,7 @@ var reload = bs.reload;
 var path = {
     input: {
         js: [''],
-        scss: [''],
+        scss: ['']
     },
     output: {
         dist: 'dist'
@@ -22,13 +22,13 @@ var path = {
 gulp.task('serve', function() {
     bs.init({
         server: {
-            baseDir: './'
+            baseDir: 'src'
         }
     });
 
     gulp.watch('src/assets/styles/scss/*.scss', ['sass'], reload);
     gulp.watch([
-        '*.html',
+        'src/index.html',
         'src/app/views/*.html',
         'src/app/scripts/*.js'
     ]).on('change', reload);
@@ -43,8 +43,8 @@ gulp.task('sass', function() {
 });
 
 // 注入 css、javascript、插件
-gulp.task('inject', ['sass'], function() {
-    var target = gulp.src('./index.html');
+gulp.task('inject', function() {
+    var target = gulp.src('src/index.html');
 
     var headSources = gulp.src([
         'src/assets/styles/css/**/*.css',
@@ -59,7 +59,7 @@ gulp.task('inject', ['sass'], function() {
     return target.pipe(inject(headSources, {starttag: '<!-- inject:head:{{ext}} -->'}))
         .pipe(inject(bodySources, {starttag: '<!-- inject:body:{{ext}} -->'}))
         .pipe(wiredep())
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest('src'));
 });
 
 /*
