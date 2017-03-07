@@ -22,7 +22,7 @@ var path = {
 gulp.task('serve', function() {
     bs.init({
         server: {
-            baseDir: 'src'
+            baseDir: 'src/'
         }
     });
 
@@ -43,7 +43,7 @@ gulp.task('sass', function() {
 });
 
 // 注入 css、javascript、插件
-gulp.task('inject', function() {
+gulp.task('inject', ['sass'], function() {
     var target = gulp.src('src/index.html');
 
     var headSources = gulp.src([
