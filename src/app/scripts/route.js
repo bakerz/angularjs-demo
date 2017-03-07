@@ -12,13 +12,13 @@ angular.module('myApp', ['ui.router'])
         url: '/home',
         views: {
             'header': {
-                templateUrl: 'client/views/header.html'
+                templateUrl: 'app/views/header.html'
             },
             'nav': {
-                templateUrl: 'client/views/nav.html'
+                templateUrl: 'app/views/nav.html'
             },
             'content': {
-                templateUrl: 'client/views/contentDefault.html'
+                templateUrl: 'app/views/contentDefault.html'
             }
         }
     })
@@ -26,7 +26,7 @@ angular.module('myApp', ['ui.router'])
         url:'/demo01',
         views: {
             'content@': {
-                templateUrl: 'client/views/demo01.html'
+                templateUrl: 'app/views/demo01.html'
             }
         }
     })
@@ -34,7 +34,7 @@ angular.module('myApp', ['ui.router'])
         url:'/demo02',
         views: {
             'content@': {
-                templateUrl: 'client/views/demo02.html',
+                templateUrl: 'app/views/demo02.html',
                 controller: 'demo02Ctrl'
             }
         }
@@ -43,7 +43,7 @@ angular.module('myApp', ['ui.router'])
         url:'/demo03',
         views: {
             'content@': {
-                templateUrl: 'client/views/demo03.html'
+                templateUrl: 'app/views/demo03.html'
             }
         }
     });
