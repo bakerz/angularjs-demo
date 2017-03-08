@@ -1,12 +1,14 @@
 'use strict';
 
-var gulp = require('gulp');
-var bs = require('browser-sync').create();
-var sass = require('gulp-sass');
-var wiredep = require('wiredep').stream;
-var inject = require('gulp-inject');
-var rev = require('gulp-rev');
-var reload = bs.reload;
+var gulp = require('gulp'),
+    bs = require('browser-sync').create(),
+    sass = require('gulp-sass'),
+    wiredep = require('wiredep').stream,
+    inject = require('gulp-inject'),
+    rev = require('gulp-rev'),
+    del = require('del'),
+    concat = require('gulp-concat'),
+    reload = bs.reload;
 
 // 路径配置
 var path = {
@@ -41,9 +43,8 @@ gulp.task('js', function () {});
 // copy
 gulp.task('copy', ['sass'], function () {
    return  gulp.src([
-           'src/app/**/*.html',
-           'src/app/**/*.js',
-           'src/assets/styles/css/*.css'
+           'src/**/*.html',
+           'src/**/*.js'
        ]).pipe(gulp.dest('dist'))
 });
 
@@ -51,8 +52,9 @@ gulp.task('copy', ['sass'], function () {
 gulp.task('sass', function() {
     return gulp.src('src/assets/styles/scss/*.scss')
         .pipe(sass())
+        .pipe(concat('app.css'))
         .pipe(rev())
-        .pipe(gulp.dest('src/assets/styles/css'))
+        .pipe(gulp.dest('dist/assets/styles/css'))
         .pipe(reload({stream: true}));
 });
 
@@ -88,5 +90,10 @@ gulp.task('js', function() {
 // 打包 dist
 // 压缩
 // 构建清空
+
+// 清空
+gulp.task('del', function() {
+    del('dist/*');
+});
 
 gulp.task('default', ['serve', 'inject']);
