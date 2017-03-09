@@ -8,6 +8,7 @@ var gulp = require('gulp'),
     rev = require('gulp-rev'),
     del = require('del'),
     concat = require('gulp-concat'),
+    uglify = require('gulp-uglify'),
     reload = bs.reload;
 
 // 路径配置
@@ -37,15 +38,12 @@ gulp.task('serve', function() {
     ]).on('change', reload);
 });
 
-// 压缩合并 js
-gulp.task('js', function () {});
-
 // copy
 gulp.task('copy', ['sass'], function () {
    return  gulp.src([
-           'src/**/*.html',
-           'src/**/*.js'
-       ]).pipe(gulp.dest('dist'))
+       'src/**/*.html',
+       'src/**/*.js'
+   ]).pipe(gulp.dest('dist'))
 });
 
 // scss编译后的css将注入到浏览器里实现更新
@@ -55,6 +53,16 @@ gulp.task('sass', function() {
         .pipe(concat('app.css'))
         .pipe(rev())
         .pipe(gulp.dest('dist/assets/styles/css'))
+        .pipe(reload({stream: true}));
+});
+
+// 合并‘压缩’ js
+gulp.task('js', function () {
+    return gulp.src('src/app/scripts/**/*.js')
+        .pipe(uglify())
+        .pipe(concat('app.js'))
+        .pipe(rev())
+        .pipe(gulp.dest('dist/app/scripts'))
         .pipe(reload({stream: true}));
 });
 
@@ -86,10 +94,6 @@ gulp.task('js', function() {
         .pipe(uglify())
         .pipe(gulp.dest('dist/js'));
 });*/
-
-// 打包 dist
-// 压缩
-// 构建清空
 
 // 清空
 gulp.task('del', function() {
