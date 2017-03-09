@@ -9,6 +9,7 @@ var gulp = require('gulp'),
     del = require('del'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
+    useref = require('gulp-useref'),
     reload = bs.reload;
 
 // 路径配置
@@ -48,11 +49,11 @@ gulp.task('copy', ['sass'], function () {
 
 // scss编译后的css将注入到浏览器里实现更新
 gulp.task('sass', function() {
-    return gulp.src('src/assets/styles/scss/*.scss')
+    return gulp.src('src/assets/styles/**/*.scss')
         .pipe(sass())
         .pipe(concat('app.css'))
         .pipe(rev())
-        .pipe(gulp.dest('dist/assets/styles/css'))
+        .pipe(gulp.dest('dist/assets/styles'))
         .pipe(reload({stream: true}));
 });
 
@@ -71,7 +72,7 @@ gulp.task('inject', ['del', 'copy'], function() {
     var target = gulp.src('dist/index.html');
 
     var headSources = gulp.src([
-        'dist/assets/styles/css/**/*.css',
+        'dist/assets/styles/**/*.css',
         'dist/app/scripts/**/route.js'
         ], {read: false});
 
@@ -83,17 +84,9 @@ gulp.task('inject', ['del', 'copy'], function() {
     return target.pipe(inject(headSources, {starttag: '<!-- inject:head:{{ext}} -->', relative: true}))
         .pipe(inject(bodySources, {starttag: '<!-- inject:body:{{ext}} -->', relative: true}))
         .pipe(wiredep())
+        .pipe(useref())
         .pipe(gulp.dest('dist'));
 });
-
-/*
-// 压缩
-gulp.task('js', function() {
-    return gulp.src('client/public/scripts/*.js')
-        .pipe(browserify())
-        .pipe(uglify())
-        .pipe(gulp.dest('dist/js'));
-});*/
 
 // 清空
 gulp.task('del', function() {
