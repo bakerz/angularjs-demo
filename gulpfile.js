@@ -25,7 +25,7 @@ var path = {
 gulp.task('serve', function() {
     bs.init({
         server: {
-            baseDir: 'src'
+            baseDir: 'dist'
         }
     });
 
@@ -59,21 +59,21 @@ gulp.task('sass', function() {
 });
 
 // 注入 css、javascript、插件
-gulp.task('inject', ['sass'], function() {
-    var target = gulp.src('src/index.html');
+gulp.task('inject', ['del', 'copy'], function() {
+    var target = gulp.src('dist/index.html');
 
     var headSources = gulp.src([
-        'src/assets/styles/css/**/*.css',
-        'src/app/scripts/**/route.js'
+        'dist/assets/styles/css/**/*.css',
+        'dist/app/scripts/**/route.js'
         ], {read: false});
 
     var bodySources = gulp.src([
-        '!src/app/scripts/route.js',
-        'src/app/scripts/**/*.js'
+        '!dist/app/scripts/route.js',
+        'dist/app/scripts/**/*.js'
         ], {read: false});
 
-    return target.pipe(inject(headSources, {starttag: '<!-- inject:head:{{ext}} -->'}, {relative: true}))
-        .pipe(inject(bodySources, {starttag: '<!-- inject:body:{{ext}} -->'}, {relative: true}))
+    return target.pipe(inject(headSources, {starttag: '<!-- inject:head:{{ext}} -->', relative: true}))
+        .pipe(inject(bodySources, {starttag: '<!-- inject:body:{{ext}} -->', relative: true}))
         .pipe(wiredep())
         .pipe(gulp.dest('dist'));
 });
