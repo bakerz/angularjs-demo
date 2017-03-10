@@ -3,21 +3,12 @@
 <head>
     <title>AngularJS Demo</title>
     <meta charset="utf-8">
-
-    <!-- inject:head:css -->
-    <!-- endinject -->
-
-    <!-- build:css assets/styles/vendor.css -->
+    <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
     <!-- endbower -->
     <!-- endbuild -->
 
-    <!-- build:js app/scripts/vendor.js -->
-    <!-- bower:js -->
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- inject:head:js -->
+    <!-- inject:css -->
     <!-- endinject -->
 </head>
 <body ng-app="myApp">
@@ -25,7 +16,12 @@
     <div ui-view="nav"></div>
     <div ui-view="content"></div>
 
-    <!-- inject:body:js -->
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- inject:js -->
     <!-- endinject -->
 </body>
 </html>

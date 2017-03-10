@@ -31,7 +31,7 @@ gulp.task('serve', function() {
         }
     });
 
-    gulp.watch('src/assets/styles/scss/*.scss', ['sass'], reload);
+    gulp.watch('src/assets/styles/scss/*.scss', ['styles'], reload);
     gulp.watch([
         'src/index.html',
         'src/app/views/*.html',
@@ -40,15 +40,16 @@ gulp.task('serve', function() {
 });
 
 // copy
-gulp.task('copy', ['sass'], function () {
+gulp.task('copy', ['styles'], function () {
    return  gulp.src([
-       'src/**/*.html',
+       /*'src/!**!/!*.html',*/
        'src/**/*.js'
    ]).pipe(gulp.dest('dist'))
 });
 
+
 // scss编译后的css将注入到浏览器里实现更新
-gulp.task('sass', function() {
+gulp.task('styles', function() {
     return gulp.src('src/assets/styles/**/*.scss')
         .pipe(sass())
         .pipe(concat('app.css'))
@@ -57,8 +58,8 @@ gulp.task('sass', function() {
         .pipe(reload({stream: true}));
 });
 
-// 合并‘压缩’ js
-gulp.task('js', function () {
+// 合并压缩 js
+gulp.task('scripts', function () {
     return gulp.src('src/app/scripts/**/*.js')
         .pipe(uglify())
         .pipe(concat('app.js'))
@@ -69,20 +70,16 @@ gulp.task('js', function () {
 
 // 注入 css、javascript、插件
 gulp.task('inject', ['del', 'copy'], function() {
-    var target = gulp.src('dist/index.html');
+    var target = gulp.src('src/index.html');
 
-    var headSources = gulp.src([
+    var sources = gulp.src([
         'dist/assets/styles/**/*.css',
-        'dist/app/scripts/**/route.js'
-        ], {read: false});
-
-    var bodySources = gulp.src([
-        '!dist/app/scripts/route.js',
         'dist/app/scripts/**/*.js'
         ], {read: false});
 
-    return target.pipe(inject(headSources, {starttag: '<!-- inject:head:{{ext}} -->', relative: true}))
-        .pipe(inject(bodySources, {starttag: '<!-- inject:body:{{ext}} -->', relative: true}))
+    return target
+        .pipe(gulp.dest('dist'))
+        .pipe(inject(sources, {relative: true}))
         .pipe(wiredep())
         .pipe(useref())
         .pipe(gulp.dest('dist'));
