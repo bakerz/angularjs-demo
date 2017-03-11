@@ -18,10 +18,10 @@ $ cd angularjs-demo
 ```
 $ npm install
 
-$ bowser install
+$ bower install
 ```
 
 **Step 4**: Run the demo
 ```
-$ gulp serve
+$ gulp
 ```
