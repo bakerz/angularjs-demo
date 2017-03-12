@@ -42,7 +42,7 @@ gulp.task('serve', function() {
 // copy
 gulp.task('copy', ['styles'], function () {
    return  gulp.src([
-       /*'src/!**!/!*.html',*/
+       'src/**/*.html',
        'src/**/*.js'
    ]).pipe(gulp.dest('dist'))
 });
