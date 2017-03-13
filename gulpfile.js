@@ -13,44 +13,6 @@ var gulp = require('gulp'),
     order = require('gulp-order'),
     reload = bs.reload;
 
-// 路径配置
-var path = {
-    input: {
-        js: [''],
-        scss: ['']
-    },
-    output: {
-        dist: 'dist'
-    }
-};
-
-// browser-sync 静态服务器
-gulp.task('serve', function() {
-    bs.init({
-        server: {
-            baseDir: 'dist',
-            routes: {
-                '/bower_components': 'bower_components'
-            }
-        }
-    });
-
-    gulp.watch('src/styles/scss/*.scss', ['styles'], reload);
-    gulp.watch([
-        'src/index.html',
-        'src/views/*.html',
-        'src/scripts/*.js'
-    ]).on('change', reload);
-});
-
-gulp.task('server:dist', function () {
-    bs.init({
-        server: {
-            baseDir: 'dist'
-        }
-    })
-});
-
 // copy
 gulp.task('copy', ['del', 'styles'], function () {
    return  gulp.src([
@@ -87,6 +49,7 @@ gulp.task('inject', ['del', 'copy'], function() {
 
     var sources = gulp.src([
         'dist/styles/**/*.css',
+        'dist/scripts/_index.js',
         'dist/scripts/route.js',
         'dist/scripts/**/*.js'
         ], {read: false});
@@ -100,8 +63,69 @@ gulp.task('inject', ['del', 'copy'], function() {
 });
 
 // 清空
-gulp.task('del', function() {
+gulp.task('del:dist', function() {
     del('dist/*');
 });
 
-gulp.task('default', ['serve', 'inject']);
+gulp.task('del:tmp', function() {
+    del('.tmp/*');
+});
+
+gulp.task('styles:dev', function () {
+    return gulp.src('src/styles/**/*.scss')
+        .pipe(sass())
+        .pipe(concat('app.css'))
+        .pipe(gulp.dest('.tmp/styles'))
+        .pipe(reload({stream: true}));
+});
+
+gulp.task('inject:dev', ['styles:dev'], function() {
+    var target = gulp.src('src/index.html');
+
+    var sources = gulp.src([
+        '.tmp/styles/**/*.css',
+        'src/scripts/_index.js',
+        'src/scripts/route.js',
+        'src/scripts/**/*.js'
+    ], {read: false});
+
+    return target
+        .pipe(gulp.dest('.tmp'))
+        .pipe(inject(sources, {ignorePath: ['.tmp', 'src'], addRootSlash: false}))
+        .pipe(wiredep())
+        .pipe(gulp.dest('.tmp'));
+});
+
+// watch 状态：修改内容、修改名称、删除、添加
+gulp.task('watch', ['inject:dev'], function () {
+    gulp.watch('src/styles/**/*.scss', ['styles:dev'], reload);
+    gulp.watch([
+        'src/index.html',
+        'src/views/**/*.html',
+        'src/scripts/**/*.js'
+    ]).on('change', reload);
+});
+
+// browser-sync 静态服务器
+gulp.task('serve:dev', ['del:tmp', 'watch'], function() {
+    bs.init({
+        server: {
+            baseDir: ['.tmp', 'src'],
+            routes: {
+                '/bower_components': 'bower_components'
+            }
+        }
+    });
+});
+
+//gulp.task('server:dist', ['dist'], function() {});
+gulp.task('server:dist', function () {
+    bs.init({
+        server: {
+            baseDir: 'dist'
+        }
+    })
+});
+
+gulp.task('default', ['serve:dev']);
+//gulp.task('default', ['serve:dev', 'inject']);
