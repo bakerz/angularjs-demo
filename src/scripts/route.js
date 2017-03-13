@@ -12,13 +12,13 @@ angular.module('app-router', [])
         url: '/home',
         views: {
             'header': {
-                templateUrl: 'views/header.html'
+                templateUrl: 'views/uiHeader.html'
             },
             'nav': {
-                templateUrl: 'views/nav.html'
+                templateUrl: 'views/uiNav.html'
             },
             'content': {
-                templateUrl: 'views/contentDefault.html'
+                templateUrl: 'views/uiContentDefault.html'
             }
         }
     })

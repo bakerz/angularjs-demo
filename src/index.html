@@ -12,9 +12,9 @@
     <!-- endinject -->
 </head>
 <body ng-app="myApp">
-    <div ui-view="header"></div>
-    <div ui-view="nav"></div>
-    <div ui-view="content"></div>
+    <header ui-view="header" id="ui-header"></header>
+    <nav ui-view="nav" id="ui-nav"></nav>
+    <section ui-view="content" id="ui-content"></section>
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->

@@ -93,17 +93,20 @@ gulp.task('inject:dev', ['styles:dev'], function() {
         .pipe(gulp.dest('.tmp'))
         .pipe(inject(sources, {ignorePath: ['.tmp', 'src'], addRootSlash: false}))
         .pipe(wiredep())
-        .pipe(gulp.dest('.tmp'));
+        .pipe(gulp.dest('.tmp'))
+        .pipe(reload({stream: true}));
 });
 
-// watch 状态：修改内容、修改名称、删除、添加
+// event.type: [added, changed, deleted]
 gulp.task('watch', ['inject:dev'], function () {
-    gulp.watch('src/styles/**/*.scss', ['styles:dev'], reload);
+    gulp.watch('src/styles/**/*.scss', ['styles:dev']);
+
     gulp.watch([
-        'src/index.html',
         'src/views/**/*.html',
         'src/scripts/**/*.js'
     ]).on('change', reload);
+
+    gulp.watch('src/index.html', ['inject:dev']);
 });
 
 // browser-sync 静态服务器
