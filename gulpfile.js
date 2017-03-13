@@ -10,6 +10,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     useref = require('gulp-useref'),
+    order = require('gulp-order'),
     reload = bs.reload;
 
 // 路径配置
@@ -23,48 +24,60 @@ var path = {
     }
 };
 
-// 静态服务器
+// browser-sync 静态服务器
 gulp.task('serve', function() {
+    bs.init({
+        server: {
+            baseDir: 'dist',
+            routes: {
+                '/bower_components': 'bower_components'
+            }
+        }
+    });
+
+    gulp.watch('src/styles/scss/*.scss', ['styles'], reload);
+    gulp.watch([
+        'src/index.html',
+        'src/views/*.html',
+        'src/scripts/*.js'
+    ]).on('change', reload);
+});
+
+gulp.task('server:dist', function () {
     bs.init({
         server: {
             baseDir: 'dist'
         }
-    });
-
-    gulp.watch('src/assets/styles/scss/*.scss', ['styles'], reload);
-    gulp.watch([
-        'src/index.html',
-        'src/app/views/*.html',
-        'src/app/scripts/*.js'
-    ]).on('change', reload);
+    })
 });
 
 // copy
-gulp.task('copy', ['styles'], function () {
+gulp.task('copy', ['del', 'styles'], function () {
    return  gulp.src([
        'src/**/*.html',
-       'src/**/*.js'
+       'src/**/*.js',
+       'src/**/*.{jpg,png}'
    ]).pipe(gulp.dest('dist'))
 });
 
 
 // scss编译后的css将注入到浏览器里实现更新
 gulp.task('styles', function() {
-    return gulp.src('src/assets/styles/**/*.scss')
+    return gulp.src('src/styles/**/*.scss')
         .pipe(sass())
         .pipe(concat('app.css'))
         .pipe(rev())
-        .pipe(gulp.dest('dist/assets/styles'))
+        .pipe(gulp.dest('dist/styles'))
         .pipe(reload({stream: true}));
 });
 
 // 合并压缩 js
 gulp.task('scripts', function () {
-    return gulp.src('src/app/scripts/**/*.js')
+    return gulp.src('src/scripts/**/*.js')
         .pipe(uglify())
         .pipe(concat('app.js'))
         .pipe(rev())
-        .pipe(gulp.dest('dist/app/scripts'))
+        .pipe(gulp.dest('dist/scripts'))
         .pipe(reload({stream: true}));
 });
 
@@ -73,8 +86,9 @@ gulp.task('inject', ['del', 'copy'], function() {
     var target = gulp.src('src/index.html');
 
     var sources = gulp.src([
-        'dist/assets/styles/**/*.css',
-        'dist/app/scripts/**/*.js'
+        'dist/styles/**/*.css',
+        'dist/scripts/route.js',
+        'dist/scripts/**/*.js'
         ], {read: false});
 
     return target
