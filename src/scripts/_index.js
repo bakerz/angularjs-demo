@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('demo-app',[
+angular.module('myApp',[
     'ui.router',
     'app-router'
 ]);
