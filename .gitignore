@@ -3,3 +3,4 @@ bower_components/
 src/assets/styles/css/
 dist/
 .idea/
+.tmp/
