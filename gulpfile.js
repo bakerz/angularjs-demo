@@ -11,6 +11,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     useref = require('gulp-useref'),
     order = require('gulp-order'),
+    plumber = require('gulp-plumber'),
     reload = bs.reload;
 
 // copy
@@ -73,7 +74,7 @@ gulp.task('del:tmp', function() {
 
 gulp.task('styles:dev', function () {
     return gulp.src('src/styles/**/*.scss')
-        .pipe(sass())
+        .pipe(sass().on('error', sass.logError))
         .pipe(concat('app.css'))
         .pipe(gulp.dest('.tmp/styles'))
         .pipe(reload({stream: true}));
