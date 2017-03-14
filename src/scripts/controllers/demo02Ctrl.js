@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('myApp')
 .controller('demo02Ctrl', ['$scope', function($scope) {
     $scope.firstName = 'John';
