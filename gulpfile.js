@@ -100,14 +100,14 @@ gulp.task('inject:dev', ['styles:dev'], function() {
 
 // event.type: [added, changed, deleted]
 gulp.task('watch', ['inject:dev'], function () {
+    gulp.watch('src/views/**/*.html').on('change', reload);
+
     gulp.watch('src/styles/**/*.scss', ['styles:dev']);
 
     gulp.watch([
-        'src/views/**/*.html',
+        'src/index.html',
         'src/scripts/**/*.js'
-    ]).on('change', reload);
-
-    gulp.watch('src/index.html', ['inject:dev']);
+    ], ['inject:dev']);
 });
 
 // browser-sync 静态服务器
