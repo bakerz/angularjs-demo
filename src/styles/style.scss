@@ -16,8 +16,12 @@ body {
 #ui-nav {
     float: left;
     width: 150px;
+
+    ul {
+        border-right: 1px solid #bbb;
+    }
 }
 
 #ui-content {
-    margin-left: 170px;
+    margin: 16px 0 0 170px;
 }
