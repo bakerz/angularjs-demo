@@ -10,6 +10,7 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     useref = require('gulp-useref'),
+    ngAnnotate = require('gulp-ng-annotate'),
     order = require('gulp-order'),
     plumber = require('gulp-plumber'),
     reload = bs.reload;
