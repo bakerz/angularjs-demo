@@ -1,72 +1,98 @@
 'use strict';
 
 angular.module('myApp')
-.controller('demo08Ctrl', ['$uibModal', '$log', function ($uibModal, $log) {
-    var $ctrl = this;
-    $ctrl.items = ['item1', 'item2', 'item3'];
+.controller('demo08Ctrl', ['$scope', '$uibModal', '$log', '$document', function ($scope, $uibModal, $log, $document) {
+    $scope.items = ['item1', 'item2', 'item3'];
 
-    $ctrl.animationsEnabled = true;
+    $scope.animationsEnabled = true;
 
-    $ctrl.open = function (size) {
+    $scope.open = function (size, parentSelector) {
+        var parentElem = parentSelector ?
+            angular.element($document[0].querySelector(parentSelector)) : undefined;
         var modalInstance = $uibModal.open({
-            animation: $ctrl.animationsEnabled,
+            animation: $scope.animationsEnabled,
             ariaLabelledBy: 'modal-title',
             ariaDescribedBy: 'modal-body',
             templateUrl: 'myModalContent.html',
             controller: 'ModalInstanceCtrl',
-            controllerAs: '$ctrl',
+            controllerAs: '$scope',
             size: size,
+            appendTo: parentElem,
             resolve: {
                 items: function () {
-                    return $ctrl.items;
+                    return $scope.items;
                 }
             }
         });
 
         modalInstance.result.then(function (selectedItem) {
-            $ctrl.selected = selectedItem;
+            $scope.selected = selectedItem;
         }, function () {
             $log.info('Modal dismissed at: ' + new Date());
         });
     };
 
-    $ctrl.openComponentModal = function () {
+    $scope.openComponentModal = function () {
         var modalInstance = $uibModal.open({
-            animation: $ctrl.animationsEnabled,
+            animation: $scope.animationsEnabled,
             component: 'modalComponent',
             resolve: {
                 items: function () {
-                    return $ctrl.items;
+                    return $scope.items;
                 }
             }
         });
 
         modalInstance.result.then(function (selectedItem) {
-            $ctrl.selected = selectedItem;
+            $scope.selected = selectedItem;
         }, function () {
             $log.info('modal-component dismissed at: ' + new Date());
         });
     };
 
-    $ctrl.toggleAnimation = function () {
-        $ctrl.animationsEnabled = !$ctrl.animationsEnabled;
+    $scope.openMultipleModals = function () {
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            ariaLabelledBy: 'modal-title-bottom',
+            ariaDescribedBy: 'modal-body-bottom',
+            templateUrl: 'stackedModal.html',
+            size: 'sm',
+            controller: function($scope) {
+                $scope.name = 'bottom';
+            }
+        });
+
+        $uibModal.open({
+            animation: $scope.animationsEnabled,
+            ariaLabelledBy: 'modal-title-top',
+            ariaDescribedBy: 'modal-body-top',
+            templateUrl: 'stackedModal.html',
+            size: 'sm',
+            controller: function($scope) {
+                $scope.name = 'top';
+            }
+        });
+    };
+
+    $scope.toggleAnimation = function () {
+        $scope.animationsEnabled = !$scope.animationsEnabled;
     };
 }])
-.controller('ModalInstanceCtrl', function ($uibModalInstance, items) {
-    var $ctrl = this;
-    $ctrl.items = items;
-    $ctrl.selected = {
-        item: $ctrl.items[0]
+.controller('ModalInstanceCtrl', ['$scope', '$uibModalInstance', 'items',
+function ($scope, $uibModalInstance, items) {
+    $scope.items = items;
+    $scope.selected = {
+        item: $scope.items[0]
     };
 
-    $ctrl.ok = function () {
-        $uibModalInstance.close($ctrl.selected.item);
+    $scope.ok = function () {
+        $uibModalInstance.close($scope.selected.item);
     };
 
-    $ctrl.cancel = function () {
+    $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };
-})
+}])
 .component('modalComponent', {
     templateUrl: 'myModalContent.html',
     bindings: {
@@ -75,21 +101,25 @@ angular.module('myApp')
         dismiss: '&'
     },
     controller: function () {
-        var $ctrl = this;
+        console.log(this);
+        this.items = this.resolve.items;
 
-        $ctrl.$onInit = function () {
-            $ctrl.items = $ctrl.resolve.items;
-            $ctrl.selected = {
-                item: $ctrl.items[0]
+        var $scope = this;
+
+        $scope.$onInit = function () {
+            $scope.items = $scope.resolve.items;
+            $scope.selected = {
+                item: $scope.items[0]
             };
         };
 
-        $ctrl.ok = function () {
-            $ctrl.close({$value: $ctrl.selected.item});
+        this.ok = function () {
+            console.log(333);
+            $scope.close({$value: $scope.selected.item});
         };
 
-        $ctrl.cancel = function () {
-            $ctrl.dismiss({$value: 'cancel'});
+        this.cancel = function () {
+            $scope.dismiss({$value: 'cancel'});
         };
     }
 });
