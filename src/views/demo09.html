@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="../bower_components/angular-bootstrap/ui-bootstrap-csp.css">
-  <script type="text/javascript" src="../../bower_components/angular/angular.min.js"></script>
-  <script type="text/javascript" src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-</head>
-<body ng-app="myApp">
-  <div ng-controller="PaginationDemoCtrl">
+<div id="demo09">
     <h4>Default</h4>
     <ul uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></ul>
     <ul uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
@@ -32,7 +21,6 @@
     <ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-link-numbers="true" rotate="false"></ul>
     <pre>Page: {{bigCurrentPage}} / {{numPages}}</pre>
 
-
     pagination
     total-items - 所有页中的项目总数
     <br>
@@ -51,15 +39,15 @@
 
     direction-links $ C (Default: true) - 是否显示之前/下一个按钮。
     <br>
+
     numPages - 总页数， {{vm.page.index}} / {{numPages}}
-
-
     <br>
-    <div style="color:#fff; font-size:30px; font-weight:bold; text-shadow:3px 3px 3px #ccc;-webkit-text-shadow:3px 3px 3px #ccc; text-align:center; margin-top:30px;">FE-演示平台</div>  
-    <section class="row">  
-        <section class="col-md-6" style="margin:40px auto; float:none; background:#fff; padding:30px;">  
-            <h4>默认：</h4>  
-            <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" previous-text="上一页" next-text="下一页"></pagination> 
+
+    <div style="color:#fff; font-size:30px; font-weight:bold; text-shadow:3px 3px 3px #ccc;-webkit-text-shadow:3px 3px 3px #ccc; text-align:center; margin-top:30px;">FE-演示平台</div>
+    <section class="row">
+        <section class="col-md-6" style="margin:40px auto; float:none; background:#fff; padding:30px;">
+            <h4>默认：</h4>
+            <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()" previous-text="上一页" next-text="下一页"></pagination>
 
             <p>//total-items 总页数 previous-text 上一页文本,//boundary-links 是否显示首尾按钮    </p>
             <pagination boundary-links="true" total-items="totalItems" ng-model="currentPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
@@ -68,42 +56,14 @@
             <pagination direction-links="true" boundary-links="true" total-items="totalItems" ng-model="currentPage"></pagination>
 
             <p>// num-pages 显示总数的可选表达式</p>
-            <pagination direction-links="false" total-items="totalItems" ng-model="currentPage" num-pages="smallnumPages"></pagination> 
+            <pagination direction-links="false" total-items="totalItems" ng-model="currentPage" num-pages="smallnumPages"></pagination>
 
             <pre>当前页：{{currentPage}}</pre>
-            
+
             <p>// max-size  显示最大页数</p>
-            <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination> 
-            <pre>当前：{{bigCurrentPage}}/{{numPages}}</pre>  
-        </section>  
-   
-    </section>  
+            <pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+            <pre>当前：{{bigCurrentPage}}/{{numPages}}</pre>
+        </section>
+
+    </section>
 </div>
-</body>
-<script type="text/javascript">
-	angular.module('myApp', ['ui.bootstrap']).controller('PaginationDemoCtrl', function ($scope, $log) {
-	  $scope.totalItems = 64;
-	  $scope.currentPage = 4;
-
-	  $scope.setPage = function (pageNo) {
-	    $scope.currentPage = pageNo;
-	  };
-
-	  $scope.pageChanged = function() {
-	    $log.log('Page changed to: ' + $scope.currentPage);
-	  };
-
-	  $scope.maxSize = 5;
-	  $scope.bigTotalItems = 175;
-	  $scope.bigCurrentPage = 1;
-
-
-	  //pagination
-    //$scope.maxSize = 7;    // ...上面都讲了 ， 往上找  
-    //$scope.totalItems = 99;  
-    //$scope.currentPage = 1;  
-    //$scope.bigTotalItems = 180;  
-    //$scope.bigCurrentPage = 1;  
-	});
-</script>
-</html>

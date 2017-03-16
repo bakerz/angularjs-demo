@@ -1,28 +1,39 @@
 body {
-    margin: 0;
-    background: url('../assets/images/bg-img.jpg') #eee;
+  margin: 0;
+  background: url('../assets/images/bg-img.jpg') #eee;
 }
 
 #ui-header {
-    background-color: #fff;
-    padding: 1px 0;
-    box-shadow: 0 1px 20px #000;
+  background-color: #fff;
+  padding: 1px 0;
+  box-shadow: 0 1px 20px #000;
 
-    h1 {
-        margin: 5px 0;
-    }
+  h1 {
+    margin: 5px 0;
+  }
 }
 
 #ui-nav {
-    float: left;
-    width: 150px;
-    margin-top: 16px;
+  float: left;
+  width: 150px;
+  margin-top: 15px;
 
-    ul {
-        border-right: 1px solid #bbb;
-    }
+  ul {
+    border-right: 1px solid #bbb;
+  }
 }
 
 #ui-content {
-    margin: 16px 0 0 170px;
+  margin: 15px 15px 0 170px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 0 15px #000;
+  -moz-box-shadow: 0 0 15px #000;
+  box-shadow: 0 0 15px #000;
+
+  &:after {
+    display: block;
+    clear: both;
+  }
 }

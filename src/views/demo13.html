@@ -1,42 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    <meta charset="utf-8">
-    <script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
-</head>
-<body ng-app="myApp">
-    <div ng-controller="myCtrl">
-        <button ng-click="addData()">add</button>
-        <div dir-test dir-data="arr" refresh-data="refresh"></div>
-    </div>
-</body>
-<body>
-    
-</body>
-<script type="text/javascript">
-    angular.module('myApp', [])
-    .controller('myCtrl', ['$scope', function($scope) {
-        $scope.arr = [];
-        $scope.addData = function() {
-            $scope.arr.push('xxxxx');
-            $scope.refresh = Date.now();
-        }
-    }])
-    .directive('dirTest', function() {
-        return {
-            restrict: 'EA',
-            template: '<div class="test">{{data}}</div>',
-            link: function(scope, element, attrs) {
-                scope.$watch(attrs.refreshData, function(newValue) {
-                    if (newValue) {
-                        console.log(attrs.dirData);
-                        scope.data = attrs.dirData;
-                    }
-                })
-            }
-        }
-    })
-                    
-</script>
-</html>
+<div id="demo13">
+  <button ng-click="addData()">add</button>
+  <div dir-test dir-data="arr" refresh-data="refresh"></div>
+</div>

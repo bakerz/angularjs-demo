@@ -91,5 +91,67 @@ angular.module('app-router', [])
                 controller: 'demo08Ctrl'
             }
         }
+    })
+    .state('home.demo09', {
+        url:'/demo09',
+        views: {
+            'content@': {
+                templateUrl: 'views/demo09.html',
+                controller: 'demo09Ctrl'
+            }
+        }
+    })
+    .state('home.demo10', {
+        url:'/demo10',
+        views: {
+            'content@': {
+                templateUrl: 'views/demo10.html',
+                controller: 'demo10Ctrl'
+            }
+        }
+    })
+    .state('home.demo11', {
+        url:'/demo11',
+        views: {
+            'content@': {
+                templateUrl: 'views/demo11.html',
+                controller: 'demo11Ctrl'
+            }
+        }
+    })
+    .state('home.demo12', {
+        url:'/demo12',
+        views: {
+            'content@': {
+                templateUrl: 'views/demo12.html',
+                controller: 'demo12Ctrl'
+            }
+        }
+    })
+    .state('home.demo13', {
+        url:'/demo13',
+        views: {
+            'content@': {
+                templateUrl: 'views/demo13.html',
+                controller: 'demo13Ctrl'
+            }
+        }
+    })
+      .state('home.demo14', {
+          url:'/demo14',
+          views: {
+              'content@': {
+                  templateUrl: 'views/demo14.html',
+                  controller: 'demo14Ctrl'
+              }
+          }
+      })
+    .state('home.demo15', {
+        url:'/demo15',
+        views: {
+            'content@': {
+                templateUrl: 'views/demo15.html'
+            }
+        }
     });
 });

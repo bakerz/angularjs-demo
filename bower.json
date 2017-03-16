@@ -21,7 +21,9 @@
     "angular-ui-codemirror": "~0.3.0",
     "angular-ui-select": "~0.19.4",
     "angular-ui-router": "^0.4.2",
-    "angular-ui-ace": "bower"
+    "angular-ui-ace": "bower",
+    "angular-sanitize": "^1.6.3",
+    "ace-builds": "^1.2.6"
   },
   "overrides": {
     "bootstrap": {
@@ -34,6 +36,17 @@
       "main": [
         "ui-bootstrap-csp.css",
         "ui-bootstrap-tpls.js"
+      ]
+    },
+    "angular-sanitize": {
+      "main": [
+        "angular-sanitize.js"
+      ]
+    },
+    "ace-builds": {
+      "main": [
+        "src-min-noconflict/ace.js",
+        "src-min-noconflict/ext-language_tools.js"
       ]
     }
   }

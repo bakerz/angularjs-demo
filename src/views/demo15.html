@@ -1,229 +1,183 @@
+<!--
 <!DOCTYPE html>
 <html>
 <head>
-    <title>angular edit drag or click</title>
-    <script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-   
-
-    <script type="text/javascript" src='../../bower_components/codemirror/lib/codemirror.js'></script>
-    <script type="text/javascript" src='../../bower_components/angular-ui-codemirror/ui-codemirror.js'></script>
-    <script type="text/javascript" src='../../bower_components/codemirror/mode/yaml/yaml.js'></script>
-    <script type="text/javascript" src='../../public/javascripts/zxx.drag.1.0.js'></script>
+  <title>angular drag</title>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
 
-    <script type="text/javascript" src="../../bower_components/ace-builds/src-min-noconflict/ace.js"></script>
-    <script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="../../bower_components/angular-ui-ace/ui-ace.js"></script>
+  <script type="text/javascript" src='../../bower_components/codemirror/lib/codemirror.js'></script>
+  <script type="text/javascript" src='../../bower_components/angular-ui-codemirror/ui-codemirror.js'></script>
+  <script type="text/javascript" src='../../bower_components/codemirror/mode/yaml/yaml.js'></script>
+  <script type="text/javascript" src='../../public/javascripts/zxx.drag.1.0.js'></script>
 
-    <script type="text/javascript" src="../../bower_components/ace-builds/src-min-noconflict/ext-language_tools.js"></script>
+  <link rel="stylesheet" type="text/css" href="../../bower_components/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../../bower_components/angular-bootstrap/ui-bootstrap-csp.css">
 
-    <link rel="stylesheet" type="text/css" href="../../bower_components/codemirror/lib/codemirror.css">
-    <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../../bower_components/angular-bootstrap/ui-bootstrap-csp.css">
-    <style type="text/css">
-        .item {
-            position: relative;
-            margin: 5px;
-            border: 1px solid #ccc;
-        }
+-->
 
-        .ace_editor {
-            height: 200px;
-        }
-    </style>
-</head>
-<body ng-app='myApp'>
-<div ng-controller='myCtrl' class="container-fluid">
-    <div class="row">
-        <div class="col-sm-8">
-            <textarea class="form-control" style="height:100px;" id="mytextarea" ng-model="text"></textarea>
-        </div>
-        <div class="col-sm-4">
-            <h5>textarea - 点击</h5>
-            <div class="item" ng-repeat="d in datas" ng-click="test(d.data)">{{d.name}} : {{d.data}}</div>
-        </div>
+<div id="demo15">
+  <style type="text/css">
+    .droptarget {
+      float: left;
+      width: 100px;
+      height: 100px;
+      margin: 15px;
+      padding: 10px;
+      border: 1px solid #aaaaaa;
+    }
+    #dragtarget {
+      border: 1px solid #ccc;
+      cursor: move;
+    }
+  </style>
+  <div class="row">
+    <div class="droptarget" ondrop="dropDome(event)" ondragover="allowDropDome(event)">
+      <p ondragstart="dragStartDome(event)" ondragend="dragEndDome(event)" draggable="true" id="dragtarget">
+        拖动!
+      </p>
     </div>
-    <hr>
+    <div class="droptarget" ondrop="dropDome(event)" ondragover="allowDropDome(event)"></div>
+    <p id="demo"></p>
+  </div>
+  <script>
+    function dragStartDome(event) {
+      event.dataTransfer.setData("Text", event.target.id);
+      document.getElementById("demo").innerHTML = "开始拖动 p 元素";
+    }
+    function dragEndDome(event) {
+      document.getElementById("demo").innerHTML = "完成 p 元素的拖动";
+    }
+    function allowDropDome(event) {
+      event.preventDefault();
+    }
+    function dropDome(event) {
+      console.log('drop');
+      event.preventDefault();
+      var data = event.dataTransfer.getData("Text");
+      event.target.appendChild(document.getElementById(data));
+    }
+  </script>
+  <hr>
 
-    <div class="row">
-        <div class="col-sm-8">
-            <textarea class="form-control" style="height:100px;" ng-model="text"></textarea>
-        </div>
-        <div class="col-sm-4">
-            <h5>textarea - 拖拽</h5>
-            <div class="item" onclick="startDrag(this, this)" style="cursor: move;">代码块</div>
-        </div>
+  <style type="text/css">
+    .destination-area {
+      width: 200px;
+      height: 200px;
+      border: 1px dashed #ccc;
+      line-height: 200px;
+      text-align: center;
+      font-size: 40px;
+      color: #ccc;
+      position: relative;
+    }
+    .drag-item {
+      width: 200px;
+      border: 1px solid #ccc;
+      text-align: center;
+      color: #ccc;
+      cursor: move;
+      position: relative;
+    }
+    .des-area-item {
+      height: 40px;
+      width: 40px;
+      border: 1px dashed #ccc;
+      line-height: 40px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .des-area-indent {
+      height: 40px;
+      width: 40px;
+      border: 1px dashed #ccc;
+      line-height: 40px;
+      margin-left: 40px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .input-item {
+      height: 26px;
+      line-height: 26px;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+  <div class="row">
+    <div class="col-sm-8">
+      <div class="destination-area"
+           ondragenter="dragenter(event)"
+           ondragleave="dragleave(event)"
+           ondragover="dragover(event)"
+           ondrop="drop(event)"> + </div>
     </div>
-    <hr>
+    <div class="col-sm-4">
+      <div class="drag-item" draggable="true"
+           ondragstart="dragstart(event)"
+           ondragend="dragend(event)">
+        <div> + </div>
+        <input type="" name="" placeholder="<?>">
+        <div> + </div>
+        <input type="" name="" placeholder="</?>">
+        <div> + </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    function dragstart(event) {
+      console.log('start');
+    };
 
-    <div class="row">
-        <div class="col-sm-8">
-            <ui-codemirror ui-codemirror-opts='cmOptionDrag'></ui-codemirror>
-        </div>
-        <div class="col-sm-4">
-            <h5>CodeMirror - 拖拽</h5>
-            <div class="item" onclick="startDrag(this, this)" style="cursor: move;">代码块</div>
-        </div>
-    </div>
-    <hr>
+    function dragend(event) {
+      console.log('end');
+    };
 
-    <div class="row">
-        <div class="col-sm-8">
-            <ui-codemirror ui-codemirror-opts="cmOptionClick"></ui-codemirror>
-        </div>
-        <div class="col-sm-4">
-            <h5>CodeMirror - 点击</h5>
-            <div class="item" ng-repeat="d in datas" ng-click="insert(d.data)" style="cursor:pointer;">{{d.name}} : {{d.data}}</div>
-        </div>
-    </div>
+    function dragenter(event) {
+      console.log(event.target, 'enter');
+      event.target.style.border = '2px dashed #000';
+    };
 
-    <div class="row">
-        <div class="col-sm-8">
-            <div ui-ace="{
-                require: ['ace/ext/language_tools'],
-                advanced: {
-                    enableSnippets: true,
-                    enableBasicAutocompletion: true,
-                    enableLiveAutocompletion: true
-                },
-                useWrapMode : true,
-                showGutter: true,
-                mode: 'xml',
-                onLoad: aceLoaded,
-                onChange: aceChanged
-            }"></div>
-        </div>
-        <div class="col-sm-4">
-           <h5>CodeMirror - 点击</h5>
-            <div class="item" ng-repeat="d in datas" ng-click="insert(d.data)" style="cursor:pointer;">{{d.name}} : {{d.data}}</div>
-        </div>
+    function dragleave(event) {
+      console.log('leave');
+      event.target.style.border = '1px dashed #ccc';
+    };
+
+    function dragover(event) {
+      console.log('over');
+      event.preventDefault();
+    };
+
+    function drop(event) {
+      event.target.style.border = 'none';
+      event.target.style.lineHeight = '0px';
+      event.target.style.height = 'auto';
+      event.target.style.width = 'auto';
+      event.target.style.textAlign = 'left';
+      console.log(event, 'shenmeqingkuang???====drop');
+      event.target.innerHTML = '<div class="des-area-item" ondragenter="dragenter(event)" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"> + </div>'+
+        '<input type="" name="" placeholder="<?>" class="input-item" ng-model="elemNamePrefix">'+
+        '<div class="des-area-indent" ondragenter="dragenter(event)" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"> + </div>'+
+        '<input type="" name="" placeholder="</?>" class="input-item" ng-model="elemNameSuffix" disabled="disabled">'+
+        '<div class="des-area-item" ondragenter="dragenter(event)" ondragover="dragover(event)" ondragleave="dragleave(event)" ondrop="drop(event)"> + </div>';
+      event.target.ondragenter = null;
+      event.target.ondragover = null;
+      event.target.ondragleave = null;
+      event.target.ondrop = null;
+    }
+
+  </script>
+  <hr>
+
+  <div class="row">
+    <div class="col-sm-8">
+      <div target-item></div>
     </div>
+    <div class="col-sm-4">
+      <div drag-item></div>
+    </div>
+  </div>
 
 </div>
-<script type="text/javascript">
-    angular.module('myApp', ['ui.bootstrap', 'ui.codemirror', 'ui.ace'])
-    .controller('myCtrl', function($scope, $window) {
-
-        $scope.text = "version: '1'\n"+
-            "kind: appstack\n"+
-            "metadata:\n"+
-            "  name: 3-layer-appstack # 应用名称 (必填, 可修改, 长度1-40)\n"+
-            "  description: xxxxxx # 应用描述 (可选,可修改, 长度0-255)\n"+
-            "  type: 系统  # 应用类型 (必填, 可修改，下拉框)\n"+
-            "  url: http://11.1.1.1/gateway # (必填)\n"+
-            "  label:\n"+
-            "    projectId: asdfd-asdf-asdf # (必填)\n"+
-            "    farmId: 123-adsf-123 # (必填)\n"+
-            "    tenantId: 123-adsf-123 # (必填)\n"+
-            "    serviceInstanceId: 123 # (必填)";
-
-        $scope.cmOptionDrag = {
-            lineNumbers: true,
-            autofocus: true,
-            onLoad: function(cm) {
-                cm.setSize('auto', '100px');
-                doc = cm.getDoc();
-                doc.setValue($scope.text);
-            }
-        };
-
-        $scope.cmOptionClick = {
-            lineNumbers: true,
-            indentWithTabs: true,
-            autofocus: true,
-            onLoad: function(cm) {
-                cm.setSize('auto','100px');
-
-                doc = cm.getDoc();
-                doc.setValue($scope.text);
-
-                cm.on('change', function() {
-                    //console.log(doc, doc.getValue());
-                    //doc.replaceSelection("插入的内容");
-                    //console.log(doc.getValue());
-                });
-
-                cm.on('mousedown', function(){
-                    //console.log('down');
-                });
-
-                cm.on('blur', function() {
-
-                    setTimeout(function(){
-                        if ($scope.insertText) {
-                            doc.replaceSelection($scope.insertText);
-                            $scope.insertText = '';
-                            cm.focus();
-                        }
-                     },300);
-
-                });
-            }
-        };
-
-        $scope.datas = [{
-            'name': '代码1',
-            'data': 'var a = 1;'
-        },{
-            'name': '代码2',
-            'data': 'function sum(){};'
-        },{
-            'name': '代码3',
-            'data': 'console.log(123);'
-        }];
-
-        $scope.insert = function(str) {
-            $scope.insertText = str;
-        };
-
-        $scope.test = function(str) {
-            var tc = document.getElementById("mytextarea");
-            var tclen = tc.value.length; 
-            tc.focus(); 
-            if(typeof document.selection != "undefined") { 
-                document.selection.createRange().text = str; 
-            } else { 
-                tc.value = tc.value.substr(0,tc.selectionStart)+str+tc.value.substring(tc.selectionStart,tclen); 
-            } 
-        };
-
-        $scope.aceLoaded = function(_ace) {
-            //_ace.setReadOnly(true);
-            //_ace.getSession().setMode("ace/mode/yaml");
-            _ace.$blockScrolling = Infinity;
-            _ace.on('blur', function(e){
-                setTimeout(function(){
-                    if ($scope.insertText) {
-                        _ace.insert($scope.insertText);
-                        _ace.focus();
-                    }
-                },300);
-            })
-        };
-
-        $scope.aceChanged = function(e) {
-
-        }
-        
-    })
-    .directive('dragItem', function() {
-        return {
-            restrict: 'A',
-            replace: true,
-            template: '<div class="item" ng-repeat="d in datas">{{d.name}}</div>',
-            link: function(scope, elem, attrs) {
-                console.log(elem, elem[0]);
-                attrs.style = {
-                    cursor: 'move',
-                    position: 'relative',
-                    border: '1px solid #ccc',
-                };
-                startDrag(elem, elem);
-            }
-        }
-    });
-
-</script>
-</body>
-</html>
