@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('myApp')
-.controller('demo03Ctrl', ['$scope', function ($scope) {
+.controller('demo03Ctrl', function ($scope) {
     $scope.title = '点击展开';
     //这里的title是expander-title='title'中的'title'值部分的赋值；而上面指令定义中的scope{title:是template:模板中的{{title}}，也就是说在指令中，title:'=expanderTitle'这句话的意思是将属性expander-title的值'title'(由控制器赋值)绑定独立作用域也就是指令内的作用域——模板中的{{title}}之上，让{{title}}和'title'同值。记住：独立作用域三大绑定策略的作用就是绑定同一个标签内的属性名传值.不同的是：@符传递是属性值字串；=号传递的是属性值的值(控制器赋予)；&符传递是的属性调用的方法()
     $scope.text = '这里是展开后的内容';
-}])
+})
 .directive('textFold', function() {
     return {
         restrict: 'EA',

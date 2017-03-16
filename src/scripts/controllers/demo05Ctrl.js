@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('myApp')
-.controller('demo05Ctrl', ['$scope', function ($scope) {
+.controller('demo05Ctrl', function ($scope) {
     $scope.datas = [
         [1,1,1],
         [4,5,6],
@@ -16,4 +16,4 @@ angular.module('myApp')
         [1,2,3],
         [4,5,6]
     ];
-}]);
+});

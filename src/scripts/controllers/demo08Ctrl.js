@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('myApp')
-.controller('demo08Ctrl', ['$scope', '$uibModal', '$log', '$document', function ($scope, $uibModal, $log, $document) {
+.controller('demo08Ctrl', function ($scope, $uibModal, $log, $document) {
     $scope.items = ['item1', 'item2', 'item3'];
 
     $scope.animationsEnabled = true;
@@ -77,9 +77,8 @@ angular.module('myApp')
     $scope.toggleAnimation = function () {
         $scope.animationsEnabled = !$scope.animationsEnabled;
     };
-}])
-.controller('ModalInstanceCtrl', ['$scope', '$uibModalInstance', 'items',
-function ($scope, $uibModalInstance, items) {
+})
+.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
     $scope.items = items;
     $scope.selected = {
         item: $scope.items[0]
@@ -92,7 +91,7 @@ function ($scope, $uibModalInstance, items) {
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
     };
-}])
+})
 .component('modalComponent', {
     templateUrl: 'myModalContent.html',
     bindings: {

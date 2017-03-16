@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('myApp')
-.controller('demo04Ctrl', ['$scope', function ($scope) {
+.controller('demo04Ctrl', function ($scope) {
     $scope.obj = [{
         'name': 'jack',
         'age': 12
@@ -18,4 +18,4 @@ angular.module('myApp')
     $scope.sub = function () {
         $scope.obj.pop();
     };
-}]);
+});

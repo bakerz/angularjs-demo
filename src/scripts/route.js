@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app-router', [])
-.config(['$stateProvider','$urlRouterProvider',function ($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider
     .when('', '/home')
@@ -92,4 +92,4 @@ angular.module('app-router', [])
             }
         }
     });
-}]);
+});
