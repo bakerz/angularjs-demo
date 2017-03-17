@@ -1,21 +1,21 @@
 <div id="demo03">
-    <xmp>
-        $scope.test = 'test';
-        <div class="{{test}}"></div>
+  <xmp>
+    $scope.test = 'test';
+    <div class="{{test}}"></div>
 
-        $scope.isBool = true;
-        <div ng-class="{true:'success',false:'error'}[isBool]"></div>
+    $scope.isBool = true;
+    <div ng-class="{true:'success',false:'error'}[isBool]"></div>
 
-        $scope.item1 = true;
-        $scope.item2 = false;
-        $scope.item3 = true;
-        <div ng-class="{'fir':item1,'sec':item2,'ter':item3}"></div>
-    </xmp>
+    $scope.item1 = true;
+    $scope.item2 = false;
+    $scope.item3 = true;
+    <div ng-class="{'fir':item1,'sec':item2,'ter':item3}"></div>
+  </xmp>
 
-    <text-fold></text-fold>
-    <hr />
+  <text-fold></text-fold>
+  <hr />
 
-    <expander class='expander' expander-title='title'>
-        {{text}}
-    </expander>
+  <expander class='expander' expander-title='title'>
+    {{text}}
+  </expander>
 </div>

@@ -2,35 +2,35 @@
 <script type="text/javascript" src="../../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../../bower_components/angular-bootstrap/ui-bootstrap-csp.css">-->
 <div id="demo05">
-    datas 的数据结构为 {{datas}}，angularJS 会报错，ngRepeat不允许collection中存在两个相同Id的对象，angular需要一个唯一值可以与生成的dom绑定，以便追踪。
-    <br>
-    对于数字对象来说，它的id就是它自身的值，因此，数组中是不允许存在两个相同的数字的。为了规避这个错误，需要定义自己的track by表达式
-    (ps: 相同的数字或者字符串都会产生这个错误，js的对象类型，就算内容一模一样，ngRepeat 也不会认为是相同的对象，所以不会报错)
-    <table>
-        <tr ng-repeat="row in datas">
-            <td ng-repeat="col in row track by $index">{{ col }}</td>
-        </tr>
-    </table>
-    <hr>
+  datas 的数据结构为 {{datas}}，angularJS 会报错，ngRepeat不允许collection中存在两个相同Id的对象，angular需要一个唯一值可以与生成的dom绑定，以便追踪。
+  <br>
+  对于数字对象来说，它的id就是它自身的值，因此，数组中是不允许存在两个相同的数字的。为了规避这个错误，需要定义自己的track by表达式
+  (ps: 相同的数字或者字符串都会产生这个错误，js的对象类型，就算内容一模一样，ngRepeat 也不会认为是相同的对象，所以不会报错)
+  <table>
+    <tr ng-repeat="row in datas">
+      <td ng-repeat="col in row track by $index">{{ col }}</td>
+    </tr>
+  </table>
+  <hr>
 
-    遍历对象 key/value {{obj}}
-    <div ng-repeat="(key, value) in obj">{{key}}:　{{value}}</div>
-    <hr>
+  遍历对象 key/value {{obj}}
+  <div ng-repeat="(key, value) in obj">{{key}}:　{{value}}</div>
+  <hr>
 
-    ng-if 会创建一个新的 $scope 空间
-    <table>
-        <tr>
-            <td colspan="3">使用ng-if</td>
-        </tr>
-        <tr ng-repeat="row in datas2">
-            <td ng-repeat="col in row" ng-if="isShow">{{ col }}-({{$parent.$index}}, {{$index}})</td>
-        </tr>
-        <tr>
-            <td colspan="3">使用ng-show</td>
-        </tr>
-        <tr ng-repeat="row in datas2">
-            <td ng-repeat="col in row" ng-show="isShow">{{ col }}-({{$parent.$index}}, {{$index}})</td>
-        </tr>
-    </table>
-    <hr>
+  ng-if 会创建一个新的 $scope 空间
+  <table>
+    <tr>
+      <td colspan="3">使用ng-if</td>
+    </tr>
+    <tr ng-repeat="row in datas2">
+      <td ng-repeat="col in row" ng-if="isShow">{{ col }}-({{$parent.$index}}, {{$index}})</td>
+    </tr>
+    <tr>
+      <td colspan="3">使用ng-show</td>
+    </tr>
+    <tr ng-repeat="row in datas2">
+      <td ng-repeat="col in row" ng-show="isShow">{{ col }}-({{$parent.$index}}, {{$index}})</td>
+    </tr>
+  </table>
+  <hr>
 </div>

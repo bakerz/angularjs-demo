@@ -12,22 +12,22 @@
   &lt;!&ndash; <link rel="stylesheet" type="text/css" href="../../bower_components/angular-bootstrap/ui-bootstrap-csp.css"> &ndash;&gt;
 </head>
 <body ng-app="myApp">-->
-  <div id="demo12">
-    <select>
-        <option value="" disabled selected>请选择...</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-    </select>
+<div id="demo12">
+  <select>
+    <option value="" disabled selected>请选择...</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+  </select>
 
-    <ui-select ng-model="person.selected" theme="bootstrap">
-        <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
-        <ui-select-choices repeat="item in person | filter: $select.search">
-            <div ng-bind-html="item.name | highlight: $select.search"></div>
-            <small ng-bind-html="item.email | highlight: $select.search"></small>
-        </ui-select-choices>
-    </ui-select>
-  </div>
+  <ui-select ng-model="person.selected" theme="bootstrap">
+    <ui-select-match placeholder="Select or search a person in the list...">{{$select.selected.name}}</ui-select-match>
+    <ui-select-choices repeat="item in person | filter: $select.search">
+      <div ng-bind-html="item.name | highlight: $select.search"></div>
+      <small ng-bind-html="item.email | highlight: $select.search"></small>
+    </ui-select-choices>
+  </ui-select>
+</div>
 <!--</body>
 <script>
     angular.module('myApp', ['ui.select', 'ngSanitize'])

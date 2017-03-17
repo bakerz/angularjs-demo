@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('myApp')
-.controller('demo02Ctrl', function($scope) {
+  .controller('demo02Ctrl', function($scope) {
     $scope.firstName = 'John';
     $scope.lastName = 'Doe';
 
@@ -9,6 +9,6 @@ angular.module('myApp')
 
     $scope.disabled = true;
     $scope.change = function (ss) {
-        $scope.disabled = false;
+      $scope.disabled = false;
     }
-});
+  });

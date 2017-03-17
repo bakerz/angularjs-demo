@@ -1,113 +1,77 @@
-<!--<!DOCTYPE html>
-<html>
-<head>
-    <title>angular edit drag or click</title>
-    <script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-   
-
-    <script type="text/javascript" src='../../bower_components/codemirror/lib/codemirror.js'></script>
-    <script type="text/javascript" src='../../bower_components/angular-ui-codemirror/ui-codemirror.js'></script>
-    <script type="text/javascript" src='../../bower_components/codemirror/mode/yaml/yaml.js'></script>
-    <script type="text/javascript" src='../../public/javascripts/zxx.drag.1.0.js'></script>
-
-
-    <script type="text/javascript" src="../../bower_components/ace-builds/src-min-noconflict/ace.js"></script>
-    <script type="text/javascript" src="../../bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="../../bower_components/angular-ui-ace/ui-ace.js"></script>
-
-    <script type="text/javascript" src="../../bower_components/ace-builds/src-min-noconflict/ext-language_tools.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="../../bower_components/codemirror/lib/codemirror.css">
-    <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../../bower_components/angular-bootstrap/ui-bootstrap-csp.css">
-    <style type="text/css">
-        .item {
-            position: relative;
-            margin: 5px;
-            border: 1px solid #ccc;
-        }
-
-        .ace_editor {
-            height: 200px;
-        }
-    </style>
-</head>
-<body ng-app='myApp'>-->
 <div id="demo14">
-    <style type="text/css">
-        .item {
-            position: relative;
-            margin: 5px;
-            border: 1px solid #ccc;
-        }
+  <style type="text/css">
+    .item {
+      position: relative;
+      margin: 5px;
+      border: 1px solid #ccc;
+    }
 
-        .ace_editor {
-            height: 200px;
-        }
-    </style>
-    <div class="row">
-        <div class="col-sm-8">
-            <textarea class="form-control" style="height:100px;" id="mytextarea" ng-model="text"></textarea>
-        </div>
-        <div class="col-sm-4">
-            <h5>textarea - 点击</h5>
-            <div class="item" ng-repeat="d in datas" ng-click="test(d.data)">{{d.name}} : {{d.data}}</div>
-        </div>
+    .ace_editor {
+      height: 200px;
+    }
+  </style>
+  <div class="row">
+    <div class="col-sm-8">
+      <textarea class="form-control" style="height:100px;" id="mytextarea" ng-model="text"></textarea>
     </div>
-    <hr>
+    <div class="col-sm-4">
+      <h5>textarea - 点击</h5>
+      <div class="item" ng-repeat="d in datas" ng-click="test(d.data)">{{d.name}} : {{d.data}}</div>
+    </div>
+  </div>
+  <hr>
 
-    <div class="row">
-        <div class="col-sm-8">
-            <textarea class="form-control" style="height:100px;" ng-model="text"></textarea>
-        </div>
-        <div class="col-sm-4">
-            <h5>textarea - 拖拽</h5>
-            <div class="item" onclick="startDrag(this, this)" style="cursor: move;">代码块</div>
-        </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <textarea class="form-control" style="height:100px;" ng-model="text"></textarea>
     </div>
-    <hr>
+    <div class="col-sm-4">
+      <h5>textarea - 拖拽</h5>
+      <div class="item" onclick="startDrag(this, this)" style="cursor: move;">代码块</div>
+    </div>
+  </div>
+  <hr>
 
-    <div class="row">
-        <div class="col-sm-8">
-            <ui-codemirror ui-codemirror-opts='cmOptionDrag'></ui-codemirror>
-        </div>
-        <div class="col-sm-4">
-            <h5>CodeMirror - 拖拽</h5>
-            <div class="item" onclick="startDrag(this, this)" style="cursor: move;">代码块</div>
-        </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <ui-codemirror ui-codemirror-opts='cmOptionDrag'></ui-codemirror>
     </div>
-    <hr>
+    <div class="col-sm-4">
+      <h5>CodeMirror - 拖拽</h5>
+      <div class="item" onclick="startDrag(this, this)" style="cursor: move;">代码块</div>
+    </div>
+  </div>
+  <hr>
 
-    <div class="row">
-        <div class="col-sm-8">
-            <ui-codemirror ui-codemirror-opts="cmOptionClick"></ui-codemirror>
-        </div>
-        <div class="col-sm-4">
-            <h5>CodeMirror - 点击</h5>
-            <div class="item" ng-repeat="d in datas" ng-click="insert(d.data)" style="cursor:pointer;">{{d.name}} : {{d.data}}</div>
-        </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <ui-codemirror ui-codemirror-opts="cmOptionClick"></ui-codemirror>
     </div>
+    <div class="col-sm-4">
+      <h5>CodeMirror - 点击</h5>
+      <div class="item" ng-repeat="d in datas" ng-click="insert(d.data)" style="cursor:pointer;">{{d.name}} : {{d.data}}</div>
+    </div>
+  </div>
 
-    <div class="row">
-        <div class="col-sm-8">
-            <div ui-ace="{
-                require: ['ace/ext/language_tools'],
-                advanced: {
-                    enableSnippets: true,
-                    enableBasicAutocompletion: true,
-                    enableLiveAutocompletion: true
-                },
-                useWrapMode : true,
-                showGutter: true,
-                mode: 'xml',
-                onLoad: aceLoaded,
-                onChange: aceChanged
-            }"></div>
-        </div>
-        <div class="col-sm-4">
-           <h5>CodeMirror - 点击</h5>
-            <div class="item" ng-repeat="d in datas" ng-click="insert(d.data)" style="cursor:pointer;">{{d.name}} : {{d.data}}</div>
-        </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <div ui-ace="{
+        require: ['ace/ext/language_tools'],
+        advanced: {
+          enableSnippets: true,
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true
+        },
+        useWrapMode : true,
+        showGutter: true,
+        mode: 'xml',
+        onLoad: aceLoaded,
+        onChange: aceChanged
+      }"></div>
     </div>
+    <div class="col-sm-4">
+      <h5>CodeMirror - 点击</h5>
+      <div class="item" ng-repeat="d in datas" ng-click="insert(d.data)" style="cursor:pointer;">{{d.name}} : {{d.data}}</div>
+    </div>
+  </div>
 </div>
