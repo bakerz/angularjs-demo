@@ -5,6 +5,7 @@ angular.module('myApp',[
   'ui.bootstrap',
   'ui.codemirror',
   'ui.ace',
+  'ui.select',
   'ngSanitize',
   'app-router'
 ]);
