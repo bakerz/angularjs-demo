@@ -6,6 +6,8 @@ var gulp = require('gulp'),
   wiredep = require('wiredep').stream,
   inject = require('gulp-inject'),
   rev = require('gulp-rev'),
+  revReplace = require('gulp-rev-replace'),
+  filter = require('gulp-filter'),
   del = require('del'),
   concat = require('gulp-concat'),
   uglify = require('gulp-uglify'),
@@ -15,59 +17,7 @@ var gulp = require('gulp'),
   plumber = require('gulp-plumber'),
   reload = bs.reload;
 
-// copy
-gulp.task('copy', ['del', 'styles'], function () {
-  return  gulp.src([
-    'src/**/*.html',
-    'src/**/*.js',
-    'src/**/*.{jpg,png}'
-  ]).pipe(gulp.dest('dist'))
-});
-
-
-// scss编译后的css将注入到浏览器里实现更新
-gulp.task('styles', function() {
-  return gulp.src('src/styles/**/*.scss')
-    .pipe(sass())
-    .pipe(concat('app.css'))
-    .pipe(rev())
-    .pipe(gulp.dest('dist/styles'))
-    .pipe(reload({stream: true}));
-});
-
-// 合并压缩 js
-gulp.task('scripts', function () {
-  return gulp.src('src/scripts/**/*.js')
-    .pipe(uglify())
-    .pipe(concat('app.js'))
-    .pipe(rev())
-    .pipe(gulp.dest('dist/scripts'))
-    .pipe(reload({stream: true}));
-});
-
-// 注入 css、javascript、插件
-gulp.task('inject', ['del', 'copy'], function() {
-  var target = gulp.src('src/index.html');
-
-  var sources = gulp.src([
-    'dist/styles/**/*.css',
-    'dist/scripts/_index.js',
-    'dist/scripts/route.js',
-    'dist/scripts/**/*.js'
-  ], {read: false});
-
-  return target
-    .pipe(gulp.dest('dist'))
-    .pipe(inject(sources, {relative: true}))
-    .pipe(wiredep())
-    .pipe(useref())
-    .pipe(gulp.dest('dist'));
-});
-
-// 清空
-gulp.task('del:dist', function() {
-  del('dist/*');
-});
+//=========== dev start ===========\\
 
 gulp.task('del:tmp', function() {
   del('.tmp/*');
@@ -86,7 +36,7 @@ gulp.task('inject:dev', ['styles:dev'], function() {
 
   var sources = gulp.src([
     '.tmp/styles/**/*.css',
-    'src/scripts/_index.js',
+    'src/scripts/_index.js',// 保证引入顺序
     'src/scripts/route.js',
     'src/scripts/**/*.js'
   ], {read: false});
@@ -123,8 +73,70 @@ gulp.task('serve:dev', ['del:tmp', 'watch'], function() {
   });
 });
 
-//gulp.task('server:dist', ['dist'], function() {});
-gulp.task('server:dist', function () {
+//=========== dist start ==============\\
+
+gulp.task('del:dist', function() {
+  del('dist/*');
+});
+
+gulp.task('styles:dist', function () {
+  return gulp.src('src/styles/**/*.scss')
+    .pipe(sass())
+    .pipe(concat('app.css'))
+    .pipe(rev())
+    .pipe(gulp.dest('dist/styles'))
+    .pipe(reload({stream: true}));
+});
+
+gulp.task('scripts:dist', function () {
+  return gulp.src('src/scripts/**/*.js')
+    .pipe(order([
+      'src/scripts/_index.js',
+      'src/scripts/route.js',
+      'src/scripts/**/*.js'
+    ]))
+    .pipe(ngAnnotate())
+    .pipe(uglify())
+    .pipe(concat('app.js'))
+    .pipe(rev())
+    .pipe(gulp.dest('dist/scripts'))
+    .pipe(reload({stream: true}));
+});
+
+gulp.task('build:dist', function() {
+  return gulp.src([
+    'src/**/*.html',
+    'src/**/*.{jpg,png}'
+  ])
+    .pipe(gulp.dest('dist'))
+});
+
+gulp.task('inject:dist', ['build:dist', 'styles:dist', 'scripts:dist'], function() {
+
+  var target = gulp.src('src/index.html');
+
+  var sources = gulp.src([
+    'dist/styles/**/*.css',
+    'dist/scripts/**/*.js'
+  ], {read: false});
+
+  var jcFilter = filter([
+    '**/vendor.js',
+    '**/vendor.css'
+  ], {restore: true});
+
+  return target
+    .pipe(inject(sources, {ignorePath: 'dist', addRootSlash: false}))
+    .pipe(wiredep())
+    .pipe(useref())
+    .pipe(jcFilter)
+    .pipe(rev())
+    .pipe(jcFilter.restore)
+    .pipe(revReplace())
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('serve:dist', ['del:dist', 'inject:dist'], function () {
   bs.init({
     server: {
       baseDir: 'dist'
@@ -133,4 +145,3 @@ gulp.task('server:dist', function () {
 });
 
 gulp.task('default', ['serve:dev']);
-//gulp.task('default', ['serve:dev', 'inject']);
