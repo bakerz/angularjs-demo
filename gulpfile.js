@@ -3,6 +3,7 @@
 var gulp = require('gulp'),
   bs = require('browser-sync').create(),
   sass = require('gulp-sass'),
+  csso = require('gulp-csso'),
   wiredep = require('wiredep').stream,
   inject = require('gulp-inject'),
   rev = require('gulp-rev'),
@@ -83,6 +84,7 @@ gulp.task('styles:dist', function () {
   return gulp.src('src/styles/**/*.scss')
     .pipe(sass())
     .pipe(concat('app.css'))
+    .pipe(csso())
     .pipe(rev())
     .pipe(gulp.dest('dist/styles'))
     .pipe(reload({stream: true}));
