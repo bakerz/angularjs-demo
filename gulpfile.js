@@ -2,6 +2,8 @@
 
 var gulp = require('gulp'),
   bs = require('browser-sync').create(),
+  minifyHtml = require('gulp-minify-html'),
+  ngTemplateCache = require('gulp-angular-templatecache'),
   sass = require('gulp-sass'),
   csso = require('gulp-csso'),
   wiredep = require('wiredep').stream,
@@ -14,7 +16,6 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   useref = require('gulp-useref'),
   ngAnnotate = require('gulp-ng-annotate'),
-  order = require('gulp-order'),
   plumber = require('gulp-plumber'),
   reload = bs.reload;
 
@@ -80,6 +81,30 @@ gulp.task('del:dist', function() {
   del('dist/*');
 });
 
+gulp.task('build:dist', function() {
+
+  var temFilter = filter('src/views/**/*.html', {restore: true});
+  var otherFilter = filter(['src/index.html', 'src/**/*.{jpg, png}']);
+
+  return gulp.src([
+    'src/**/*.html',
+    'src/**/*.{jpg,png}'
+  ])
+    .pipe(temFilter)
+    .pipe(minifyHtml({
+      empty: true,
+      spare: true,
+      quotes: true
+    }))
+    .pipe(ngTemplateCache('templateCacheHtml.js', {
+      module: 'myApp'
+    }))
+    .pipe(gulp.dest('.tmp/template'))
+    .pipe(temFilter.restore)
+    .pipe(otherFilter)
+    .pipe(gulp.dest('dist'))
+});
+
 gulp.task('styles:dist', function () {
   return gulp.src('src/styles/**/*.scss')
     .pipe(sass())
@@ -90,13 +115,13 @@ gulp.task('styles:dist', function () {
     .pipe(reload({stream: true}));
 });
 
-gulp.task('scripts:dist', function () {
-  return gulp.src('src/scripts/**/*.js')
-    .pipe(order([
+gulp.task('scripts:dist', ['build:dist'], function () {
+  return gulp.src([
       'src/scripts/_index.js',
       'src/scripts/route.js',
-      'src/scripts/**/*.js'
-    ]))
+      'src/scripts/**/*.js',
+      '.tmp/template/templateCacheHtml.js'
+    ])
     .pipe(ngAnnotate())
     .pipe(uglify())
     .pipe(concat('app.js'))
@@ -105,15 +130,7 @@ gulp.task('scripts:dist', function () {
     .pipe(reload({stream: true}));
 });
 
-gulp.task('build:dist', function() {
-  return gulp.src([
-    'src/**/*.html',
-    'src/**/*.{jpg,png}'
-  ])
-    .pipe(gulp.dest('dist'))
-});
-
-gulp.task('inject:dist', ['build:dist', 'styles:dist', 'scripts:dist'], function() {
+gulp.task('inject:dist', ['styles:dist', 'scripts:dist'], function() {
 
   var target = gulp.src('src/index.html');
 
