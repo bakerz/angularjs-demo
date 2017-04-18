@@ -39,3 +39,26 @@ body {
     content: "";
   }
 }
+
+#demo17 {
+
+  .menu-dir {
+    position: relative;
+
+    .list-content {
+      min-width: 100px;
+      position: absolute;
+      border: 1px solid #ccc;
+
+      .item {
+        padding: 3px 5px;
+        cursor: pointer;
+        border-bottom: 1px solid #ccc;
+
+        &:hover {
+          background-color: #ccc;
+        }
+      }
+    }
+  }
+}
