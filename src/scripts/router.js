@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('app-router', [])
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider,$urlRouterProvider,$locationProvider) {
+
+    // $locationProvider.hashPrefix('!');
+    $locationProvider.hashPrefix('');
 
     $urlRouterProvider
       .when('', '/home')
