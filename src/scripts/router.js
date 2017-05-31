@@ -165,5 +165,14 @@ angular.module('app-router', [])
             controller: 'demo17Ctrl'
           }
         }
+      })
+      .state('home.demo18', {
+        url: '/demo18',
+        views: {
+          'content@': {
+            templateUrl: 'views/demo18.html',
+            controller: 'demo18Ctrl'
+          }
+        }
       });
   });
