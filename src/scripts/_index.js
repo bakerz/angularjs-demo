@@ -7,5 +7,6 @@ angular.module('myApp',[
   'ui.ace',
   'ui.select',
   'ngSanitize',
+  'ngAnimate',
   'app-router'
 ]);

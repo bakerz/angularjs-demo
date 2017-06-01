@@ -1,7 +1,10 @@
 'use strict';
 
 angular.module('app-router', [])
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider,$urlRouterProvider,$locationProvider) {
+
+    // $locationProvider.hashPrefix('!');
+    $locationProvider.hashPrefix('');
 
     $urlRouterProvider
       .when('', '/home')
@@ -160,6 +163,15 @@ angular.module('app-router', [])
           'content@': {
             templateUrl: 'views/demo17.html',
             controller: 'demo17Ctrl'
+          }
+        }
+      })
+      .state('home.demo18', {
+        url: '/demo18',
+        views: {
+          'content@': {
+            templateUrl: 'views/demo18.html',
+            controller: 'demo18Ctrl'
           }
         }
       });
