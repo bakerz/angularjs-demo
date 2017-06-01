@@ -10,5 +10,9 @@ angular.module('myApp')
     $scope.disabled = true;
     $scope.change = function (ss) {
       $scope.disabled = false;
+    };
+
+    $scope.log = function () {
+      console.log($scope.ss);
     }
   });
