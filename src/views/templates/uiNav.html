@@ -1,53 +1,5 @@
 <ul>
-  <li>
-    <a ui-sref=".demo01">demo01</a>
-  </li>
-  <li>
-    <a ui-sref=".demo02">demo02</a>
-  </li>
-  <li>
-    <a ui-sref=".demo03">demo03</a>
-  </li>
-  <li>
-    <a ui-sref=".demo04">demo04</a>
-  </li>
-  <li>
-    <a ui-sref=".demo05">demo05</a>
-  </li>
-  <li>
-    <a ui-sref=".demo06">demo06</a>
-  </li>
-  <li>
-    <a ui-sref=".demo07">demo07</a>
-  </li>
-  <li>
-    <a ui-sref=".demo08">demo08</a>
-  </li>
-  <li>
-    <a ui-sref=".demo09">demo09</a>
-  </li>
-  <li>
-    <a ui-sref=".demo10">demo10</a>
-  </li>
-  <li>
-    <a ui-sref=".demo11">demo11</a>
-  </li>
-  <li>
-    <a ui-sref=".demo12">demo12</a>
-  </li>
-  <li>
-    <a ui-sref=".demo13">demo13</a>
-  </li>
-  <li>
-    <a ui-sref=".demo14">demo14</a>
-  </li>
-  <li>
-    <a ui-sref=".demo15">demo15</a>
-  </li>
-  <li>
-    <a ui-sref=".demo17">demo17</a>
-  </li>
-  <li>
-    <a ui-sref=".demo18">demo18</a>
+  <li ng-repeat="nav in navs">
+    <a ui-sref="home.{{nav.link}}">{{nav.name}}</a>
   </li>
 </ul>
