@@ -47,7 +47,7 @@ angular.module('myApp')
 
           setTimeout(function(){
             if ($scope.insertText) {
-              doc.replaceSelection($scope.insertText);
+              cm.replaceSelection($scope.insertText);
               $scope.insertText = '';
               cm.focus();
             }
