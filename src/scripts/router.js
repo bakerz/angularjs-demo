@@ -1,6 +1,11 @@
 'use strict';
 
 angular.module('app-router', [])
+  .run(function($rootScope, $state, $stateParams) {
+      $rootScope.$state = $state;
+      $rootScope.$stateParams = $stateParams;
+    }
+  )
   .config(function ($stateProvider,$urlRouterProvider,$locationProvider) {
 
     // $locationProvider.hashPrefix('!');
@@ -18,7 +23,8 @@ angular.module('app-router', [])
             templateUrl: 'views/templates/uiHeader.html'
           },
           'nav': {
-            templateUrl: 'views/templates/uiNav.html'
+            templateUrl: 'views/templates/uiNav.html',
+            controller: 'navCtrl'
           },
           'content': {
             templateUrl: 'views/templates/uiContentDefault.html'
@@ -157,6 +163,14 @@ angular.module('app-router', [])
           }
         }
       })
+      .state('home.demo16', {
+        url:'/demo16',
+        views: {
+          'content@': {
+            templateUrl: 'views/demo16.html'
+          }
+        }
+      })
       .state('home.demo17', {
         url:'/demo17',
         views: {
@@ -174,5 +188,100 @@ angular.module('app-router', [])
             controller: 'demo18Ctrl'
           }
         }
-      });
+      })
+      .state('home.demo19', {
+        url: '/demo19',
+        abstract: true,
+        views: {
+          'content@': {
+            templateUrl: 'views/demo19.html'
+          }
+        }
+      })
+      .state('home.demo19.public', {
+        url: '/public',
+        abstract: true,
+        templateUrl: 'views/templates/demo19PublicPrivate.html',
+        controller: function ($scope) {
+          $scope.state = 'public';
+        }
+      })
+      .state('home.demo19.public.application', {
+        url: '/application',
+        views: {
+          'title': {
+            template: '<div>公有应用列表</div>'
+          },
+          'content': {
+            template: '<div>应用列表内容</div>'
+          }
+        }
+      })
+      .state('home.demo19.public.image', {
+        url: '/image',
+        views: {
+          'title': {
+            template: '<div>公有镜像列表</div>'
+          },
+          'content': {
+            template: '<div>镜像列表内容</div>'
+          }
+        }
+      })
+      .state('home.demo19.private', {
+        url: '/private',
+        abstract: true,
+        templateUrl: 'views/templates/demo19PublicPrivate.html',
+        controller: function ($scope) {
+          $scope.state = 'private';
+        }
+      })
+      .state('home.demo19.private.application', {
+        url: '/application',
+        controller: function ($scope) {
+          $scope.state = 'public';
+        },
+        views: {
+          'title': {
+            template: '<div>私有应用列表</div>'
+          },
+          'content': {
+            template: '<div>应用列表内容</div>'
+          }
+        }
+      })
+      .state('home.demo19.private.image', {
+        url: '/image',
+        controller: function ($scope) {
+          $scope.state = 'public';
+        },
+        views: {
+          'title': {
+            template: '<div>私有镜像列表</div>'
+          },
+          'content': {
+            template: '<div>镜像列表内容</div>'
+          }
+        }
+      })
+      .state('home.demo19.collection', {
+        url: '/collection',
+        abstract: true,
+        template: '<div id="demo19-collection">' +
+        '<ul>' +
+        '<li><a ui-sref="home.demo19.collection.application">应用</a></li>' +
+        '<li><a ui-sref="home.demo19.collection.image">镜像</a></li>' +
+        '</ul>' +
+        '<div ui-view=""></div>' +
+        '</div>'
+      })
+      .state('home.demo19.collection.application', {
+        url: '/application',
+        template: '收藏-应用列表'
+      })
+      .state('home.demo19.collection.image', {
+        url: '/image',
+        template: '收藏-镜像列表'
+      })
+    ;
   });
