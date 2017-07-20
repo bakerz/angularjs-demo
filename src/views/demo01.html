@@ -4,6 +4,37 @@
   <p>Hello {{str01}}</p>
   <hr />
 
-  <p>Name: <input type="text" ng-model="str02" ng-init="str02='test'"></p>
-  <p ng-bind="str02"></p>
+  <p>select</p>
+  <select ng-model="selectedColor">
+    <option value="" selected disabled>--请选择--</option>
+    <option value="{{c.name}}" ng-repeat="c in colors">{{c.name}}</option>
+  </select>
+  {{selectedColor}}
+
+  <p></p>
+
+  <select ng-model="selectedColor2" ng-init="selectedColor2 = colors[0].name">
+    <option value="{{c.name}}" ng-repeat="c in colors">{{c.name}}</option>
+  </select>
+  {{selectedColor2}}
+
+  <p></p>
+
+  <select ng-model="selectedColor3">
+    <option value="{{c.name}}" ng-repeat="c in colors">{{c.name}}</option>
+  </select>
+  {{selectedColor3}}
+
+  <p></p>
+
+  <input type="radio" name="name" ng-model="sel" value="male"/>male
+  <input type="radio" name="name" ng-model="sel" value="female"/>female
+  <p>{{sel}}</p>
+  click me to select checkbox:  <input type="checkbox" ng-model="sel"/>
+  <select>
+    <option>Hello</option>
+    <option>World</option>
+    <option ng-selected="sel">greeting</option>
+  </select>
+
 </div>

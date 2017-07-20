@@ -35,7 +35,8 @@ angular.module('app-router', [])
         url:'/demo01',
         views: {
           'content@': {
-            templateUrl: 'views/demo01.html'
+            templateUrl: 'views/demo01.html',
+            controller: 'demo01Ctrl'
           }
         }
       })
