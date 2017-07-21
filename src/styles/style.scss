@@ -20,6 +20,16 @@ body {
 
   ul {
     border-right: 1px solid #bbb;
+
+    li.active {
+      color: #fff;
+      background-color: #00c4ff;
+
+      a {
+        color: #fff;
+        text-decoration: none;
+      }
+    }
   }
 }
 

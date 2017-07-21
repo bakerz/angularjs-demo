@@ -1,5 +1,5 @@
 <ul>
-  <li ng-repeat="nav in navs">
+  <li ui-sref-active="active" ng-repeat="nav in navs">
     <a ui-sref="home.{{nav.link}}">{{nav.name}}</a>
   </li>
 </ul>

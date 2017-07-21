@@ -13,6 +13,7 @@ angular.module('app-router', [])
 
     $urlRouterProvider
       .when('', '/home')
+      .when('/home/demo19', '/home/demo19/public/application')
       .otherwise('home');
 
     $stateProvider
@@ -192,7 +193,6 @@ angular.module('app-router', [])
       })
       .state('home.demo19', {
         url: '/demo19',
-        abstract: true,
         views: {
           'content@': {
             templateUrl: 'views/demo19.html'

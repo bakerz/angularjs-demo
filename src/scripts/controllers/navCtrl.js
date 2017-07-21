@@ -58,7 +58,7 @@ angular.module('myApp').controller('navCtrl',
       link: 'demo18'
     },{
       name: 'demo19',
-      link: 'demo19.public.application'
+      link: 'demo19'
     }]
   }
 );
