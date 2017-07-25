@@ -1,0 +1,21 @@
+#demo01 {
+
+  .switch-box {
+
+    input {
+      display: none;
+    }
+
+    label {
+      border: 1px solid #000;
+    }
+
+    input[type='checkbox']:checked {
+
+      + label {
+        color: #fff;
+        background-color: #09b2e6;
+      }
+    }
+  }
+}
