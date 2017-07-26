@@ -7,7 +7,50 @@
     }
 
     label {
-      border: 1px solid #000;
+      width: 60px;
+      height: 26px;
+      cursor: pointer;
+      color: #5a5a5a;
+      font-size: 0;
+      padding: 2px 0;
+      border: 1px solid #ccc;
+      border-radius: 13px;
+      margin: 0;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s;
+
+      .box {
+        display: inline-block;
+        width: 90px;
+        position: absolute;
+        transition: left 0.5s;
+
+        span {
+          width: 35px;
+          display: inline-block;
+          text-align: center;
+          font-size: 14px;
+        }
+
+        label {
+          width: 20px;
+          height: 20px;
+          background-color: #fff;
+          border-radius: 50%;
+          margin: 0;
+          vertical-align: bottom;
+        }
+      }
+    }
+
+    input[type='checkbox']:not(:checked) {
+      + label {
+
+        .box {
+          left: -33px;
+        }
+      }
     }
 
     input[type='checkbox']:checked {
@@ -15,6 +58,10 @@
       + label {
         color: #fff;
         background-color: #09b2e6;
+
+        .box {
+          left: 0;
+        }
       }
     }
   }
