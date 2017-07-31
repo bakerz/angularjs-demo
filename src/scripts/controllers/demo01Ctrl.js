@@ -8,6 +8,12 @@ angular.module('myApp').controller('demo01Ctrl',
       {name:'blue', shade:'dark'},
       {name:'yellow', shade:'light'}];
 
+    $scope.object = {
+      dark: "black",
+      light: "red",
+      lai: "red"
+    };
+
     $scope.selectedColor3 = $scope.colors[$scope.colors.length-1].name;
   }
 );

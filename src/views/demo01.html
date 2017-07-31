@@ -37,6 +37,59 @@
     <option ng-selected="sel">greeting</option>
   </select>
 
+  <br>
+
+  <select ng-model="myColor" ng-options="color.name for color in colors"></select>
+
+  <select ng-model="myColor" ng-options="color.shade as color.name for color in colors"></select>
+
+  <select ng-model="myColor" ng-options="color.name group by color.shade for color in colors"></select>
+
+  <select ng-model="myColor" ng-options="color.name as color.name group by color.shade for color in colors"></select>
+
+  <select ng-model="myColor" ng-options="color.name for color in colors track by color.name"></select>
+
+  <pre>{{myColor | json}}</pre>
+
+  <select ng-model="obj" ng-options="key for (key, value) in object"></select>
+
+  <select ng-model="obj" ng-options="key as key for (key, value) in object"></select>
+
+  <select ng-model="obj" ng-options="key group by value for (key, value) in object"></select>
+
+  <select ng-model="obj" ng-options="key as key group by value for (key, value) in object"></select>
+
+  <pre>{{obj | json}}</pre>
+
+  <pre>
+    ngOptions针对不同类型的数据源有不同的用法，主要体现在数组和对象上。
+
+    数组：
+
+    label for value in array
+    select as label for value in array
+    label group by group for value in array
+    select as label group by group for value in array
+    select as label group by group for value in array track by trackexpr
+
+    对象：
+
+    label for ( key , value ) in object
+    select as label for ( key , value ) in object
+    label group by group for ( key , value ) in object
+    select as label group by group for ( key , value ) in object
+
+    说明：
+
+    array / object： 数据源的类型，有数组和对象两种
+    value：迭代过程中，引用数组的项或者对象的属性值
+    key：迭代过程中，引用对象的属性名
+    label：选项显示的标签，用户可看到的
+    select：结果绑定到ngModel中，如果没有指定，则默认绑定value
+    group：group by的条件，表示按某条件进行分组
+    trackexpr：用于唯一确定数组中的迭代项的表达式
+  </pre>
+
   <hr>
   
   <p>radio</p>
