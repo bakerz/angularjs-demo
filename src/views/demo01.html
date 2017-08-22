@@ -37,9 +37,11 @@
     <option ng-selected="sel">greeting</option>
   </select>
 
-  <br>
+  <hr>
 
-  <select ng-model="myColor" ng-options="color.name for color in colors"></select>
+  <p>ng-options 用法：</p>
+
+  <select ng-model="myColor" ng-options="('示例:'+ color.name) for color in colors"></select>
 
   <select ng-model="myColor" ng-options="color.shade as color.name for color in colors"></select>
 

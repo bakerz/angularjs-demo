@@ -1,21 +1,42 @@
 <div id="demo02">
-  firstName + lastName = {{ firstName + " " + lastName }}
-  <hr />
-
-  <div ng-init="names=['Jani','Hege','Kai']">
-    <ul>
-      <li ng-repeat="x in names">
-        {{ x }}
-      </li>
-    </ul>
+  <div>
+    <button ng-click="add()">添加</button>
   </div>
-  {{ type }}
-  <select>
-    <option ng-repeat="t in type" value='t'>{{t}}</option>
-  </select>
 
-  <textarea ng-change="change()" ng-model="ss"></textarea>
+  <form name="demo02" class="pull-left" novalidate="novalidate">
 
-  <button ng-click="log()">点击</button>
+    <table>
+      <thead>
+      <tr>
+        <th>站名</th>
+        <th>地址</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-form="ngForm" ng-repeat="data in datas">
+        <td>
+          <input name="name" type="text" ng-model="data.name" required>
+          <div ng-if="ngForm.name.$dirty && ngForm.name.$error.required">
+            error
+          </div>
+        </td>
+        <td>
+          <input name="address" type="url" ng-model="data.address" required>
+          <div ng-if="ngForm.address.$dirty && ngForm.address.$error.required">
+            error required
+          </div>
+          <div ng-if="ngForm.address.$error.url">
+            error url
+          </div>
+        </td>
+        <td>
+          <button ng-click="delete($index)">删除</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </form>
+  <pre class="pull-right">{{demo02 | json}}</pre>
 
 </div>
