@@ -39,6 +39,33 @@
 
   <hr>
 
+  <p>ngRepeat vs ngOptions</p>
+
+  ngRepeat
+  <select ng-model="repeatName">
+    <option value="" selected disabled>--请选择--</option>
+    <option value="{{o.name}}" ng-repeat="o in options">{{o.name}}</option>
+  </select>
+
+  <br>
+
+  ngOptions
+  <select ng-model="optionName" ng-options="o.name for o in options">
+    <option value="" selected disabled>--请选择--</option>
+  </select>
+
+  {{time}} 秒后更新 options
+
+  <p>结论：1.6.4</p>
+  <p>options 对象整体更新，已选值存在，ngRepeat 不更新，ngOptions 更新</p>
+  <p>options 对象整体更新，已选值不存在，ngRepeat 更新，ngOptions 更新</p>
+  <p>options 对象渐进式更新，已选值存在，ngRepeat 不更新，ngOptions 不更新</p>
+  <p>options 对象渐进式更新，已选值不存在，ngRepeat 更新，ngOptions 更新</p>
+
+  <pre>{{options | json}}</pre>
+
+  <hr>
+
   <p>ng-options 用法：</p>
 
   <select ng-model="myColor" ng-options="('示例:'+ color.name) for color in colors"></select>
