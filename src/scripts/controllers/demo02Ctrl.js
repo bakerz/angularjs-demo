@@ -2,13 +2,24 @@
 
 angular.module('myApp')
   .controller('demo02Ctrl', function($scope) {
-    $scope.datas = [{
-      name: 'test',
-      address: 'http://www.xxx.com'
+    $scope.tables = [{
+      datas: [{
+        name: 'test',
+        address: 'http://www.xxx.com'
+      }]
     }];
 
-    $scope.add = function () {
-      $scope.datas.push({
+    $scope.addTable = function () {
+      $scope.tables.push({
+        datas: [{
+          name: '',
+          address: ''
+        }]
+      })
+    };
+
+    $scope.add = function (data) {
+      data.push({
         name: '',
         address: ''
       })

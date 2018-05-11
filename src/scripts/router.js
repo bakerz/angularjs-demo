@@ -10,11 +10,14 @@ angular.module('app-router', [])
 
     // $locationProvider.hashPrefix('!');
     $locationProvider.hashPrefix('');
+    //$locationProvider.html5Modal(true);
 
     $urlRouterProvider
       .when('', '/home')
       .when('/home/demo19', '/home/demo19/public/application')
       .otherwise('home');
+
+    //.otherwise({redirectTo: '/home'})
 
     $stateProvider
       .state('home', {
@@ -195,7 +198,8 @@ angular.module('app-router', [])
         url: '/demo19',
         views: {
           'content@': {
-            templateUrl: 'views/demo19.html'
+            templateUrl: 'views/demo19.html',
+            controller: 'demo19Ctrl'
           }
         }
       })

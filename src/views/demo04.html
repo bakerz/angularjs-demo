@@ -1,8 +1,17 @@
 <div id="demo04">
   <button ng-click="add()">add</button>
-  <button ng-click="sub()">sub</button>
+  <button ng-click="sub()">delete</button>
+  <button ng-click="edit()">edit</button>
+  <button ng-click="replace()">replace</button>
 
   <ul>
-    <li ng-repeat="o in obj">{{o.name}}: {{o.age}}</li>
+    <li ng-repeat="o in obj">当前时间: {{o.time | date: 'yyyy-MM-dd HH:mm:ss'}}</li>
   </ul>
+
+  <select name="" id="" ng-model="time">
+    <option value="" disabled>--请选择--</option>
+    <option value="{{o.time}}" ng-repeat="o in obj">{{o.time | date: 'yyyy-MM-dd HH:mm:ss'}}</option>
+  </select>
+
+  {{time | date: 'yyyy-MM-dd HH:mm:ss'}}
 </div>

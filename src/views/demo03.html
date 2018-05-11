@@ -18,4 +18,26 @@
   <expander class='expander' expander-title='title'>
     {{text}}
   </expander>
+
+  <select class="form-control" data-ng-options="c.displayName for c in configList"
+          ng-model="selectConfigGroup.config"
+          data-ng-change="changeConfigGroup()">
+    <option value="">请选择配置组</option>
+  </select>
+
+  {{selectConfigGroup.config}}
+
+  <select class="form-control" data-ng-options="c as c.name for c in testList"
+          ng-model="selected">
+    <option value="">请选择配置组</option>
+  </select>
+
+  {{selected}}
+
+  <select class="form-control" data-ng-options="c for c in test1List"
+          ng-model="ss">
+    <option value="">请选择配置组</option>
+  </select>
+
+  {{ss}}
 </div>

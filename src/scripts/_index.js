@@ -8,5 +8,6 @@ angular.module('myApp',[
   'ui.select',
   'ngSanitize',
   'ngAnimate',
-  'app-router'
+  'app-router',
+  'kubernetesUI'
 ]);

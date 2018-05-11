@@ -24,6 +24,34 @@ angular.module('myApp').controller('demo01Ctrl',
       name: 'option4'
     }];
 
+    $scope.policyList = [{
+      'rule': 'ACCESS_IP_RANGE',
+      'ruleValue': '172.0.0.1'
+    },{
+      'rule': 'ACCESS_PORT',
+      'ruleValue': 8080
+    },{
+      'rule': 'APPLICATION',
+      'ruleValue': 5
+    }];
+
+    $scope.appList = [{
+      'id': 1,
+      'name': 'test1'
+    },{
+      'id': 3,
+      'name': 'test3'
+    },{
+      'id': 5,
+      'name': 'test5'
+    },{
+      'id': 7,
+      'name': 'test7'
+    },{
+      'id': 9,
+      'name': 'test9'
+    }];
+
     $scope.time = 3;
     $interval(function () {
       if ($scope.time > 1) {

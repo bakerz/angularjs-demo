@@ -3,19 +3,35 @@
 angular.module('myApp')
   .controller('demo04Ctrl', function ($scope) {
     $scope.obj = [{
-      'name': 'jack',
-      'age': 12
+      time: "don't change"
     },{
-      'name': 'mike',
-      'age': 10
+      time: Date.now()
     }];
 
     $scope.add = function () {
-      var object = {'name':'xxx',age:12};
+      var object = {time:Date.now()};
       $scope.obj.push(object);
     };
 
     $scope.sub = function () {
       $scope.obj.pop();
     };
+
+    $scope.edit = function () {
+      $scope.obj[0] = {
+        time: Date.now()
+      }
+    };
+
+    $scope.replace = function () {
+      $scope.obj = [{
+        time: Date.now()
+      },{
+        time: "don't change"
+      }, {
+        time: Date.now()
+      }, {
+        time: Date.now()
+      }]
+    }
   });

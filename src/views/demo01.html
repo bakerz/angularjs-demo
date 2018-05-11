@@ -120,6 +120,52 @@
   </pre>
 
   <hr>
+
+  <table class="table table-normal">
+    <thead>
+    <tr>
+      <th>访问规则</th>
+      <th width="60%">允许值</th>
+      <th width="15%" class="text-center">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-form="policyForm" ng-repeat="policy in policyList">
+      <td class="p-5">
+        <select class="form-control" ng-model="policy.rule" ng-change="selectPolicyRule(policy)">
+          <option value="" disabled>请选择</option>
+          <option value="ACCESS_IP_RANGE">允许范围IP访问</option>
+          <option value="APPLICATION">允许应用访问</option>
+          <option value="ACCESS_PORT">允许被访问端口</option>
+        </select>
+      </td>
+      <td class="p-5">
+        <div ng-if="!policy.rule">
+          <input type="text" class="form-control" disabled placeholder="请先选择访问规则类型">
+        </div>
+
+        <div ng-if="policy.rule === 'ACCESS_IP_RANGE'">
+          <input type="text" name="ruleValue" class="form-control" ng-model="policy.ruleValue" ui-validate="{name: 'validateCIDR($value)'}" placeholder="请输入正确的CIDR地址">
+        </div>
+
+        <div ng-if="policy.rule === 'APPLICATION'">
+          <select name="ruleValue" class="form-control" ng-model="policy.ruleValue" ng-options="app.id as app.name for app in appList">
+            <option value="" disabled>请选择应用</option>
+          </select>
+        </div>
+
+        <div ng-if="policy.rule === 'ACCESS_PORT'">
+          <input type="text" name="ruleValue" class="form-control" ng-model="policy.ruleValue" ui-validate="{name: 'validatePort($value)'}" placeholder="请输入正确的端口">
+        </div>
+      </td>
+      <td class="text-center">
+        x
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <hr>
   
   <p>radio</p>
   <label for="radio1"><input type="radio" name="name" id="radio1">张三</label>

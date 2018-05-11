@@ -77,6 +77,41 @@ angular.module('myApp')
     $scope.toggleAnimation = function () {
       $scope.animationsEnabled = !$scope.animationsEnabled;
     };
+
+    /*$scope.datePickerPopupModal = function () {
+      $uibModal.open({
+        templateUrl: 'datePickerPopupModal.html',
+        controller: function ($scope) {
+          $scope.dateOptions = {
+            maxDate: Date.now(),
+            showWeeks: false
+          };
+
+          $scope.opened = false;
+
+          $scope.openDatePickerPopup = function() {
+            $scope.opened = !$scope.opened;
+            console.log($scope.opened);
+          };
+        },
+        scope: $scope
+      })
+    };*/
+
+    $scope.dateOptions = {
+      maxDate: Date.now(),
+      showWeeks: false
+    };
+
+    $scope.nowDate = Date.now();
+
+    $scope.opened = false;
+
+    $scope.openDatePickerPopup = function() {
+      console.log($scope.opened);
+      $scope.opened = true;
+      console.log($scope.opened);
+    };
   })
   .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
     $scope.items = items;

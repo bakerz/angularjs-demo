@@ -26,6 +26,23 @@
     </div>
   </script>
 
+  <script type="text/ng-template" id="datePickerPopupModal.html">
+    <div class="modal-header">
+      <h3 class="modal-title">The date-picker-popup modal!</h3>
+    </div>
+    <div class="modal-body">
+      <input type="text" class="form-control" uib-datepicker-popup ng-model="assetVO.purchasingDate"
+             is-open="opened" datepicker-options="dateOptions" placeholder="请选择..."
+             close-on-date-selection="false"
+             close-text="关闭" clear-text="清除" current-text="今天" disabled/>
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="openDatePickerPopup()">
+          日历
+        </button>
+      </span>
+    </div>
+  </script>
+
   <button type="button" class="btn btn-default" ng-click="open()">Open me!</button>
   <button type="button" class="btn btn-default" ng-click="open('lg')">Large modal</button>
   <button type="button" class="btn btn-default" ng-click="open('sm')">Small modal</button>
@@ -39,4 +56,16 @@
   </button>
   <div ng-show="selected">Selection from a modal: {{ selected }}</div>
   <div class="modal-parent"></div>
+
+
+  <button type="button" class="btn btn-primary" ng-click="datePickerPopupModal()">date-picker-popup modal</button>
+  <input type="text" class="form-control" uib-datepicker-popup ng-model="nowDate"
+         is-open="opened" datepicker-options="dateOptions" placeholder="请选择..."
+         close-on-date-selection="false"
+         close-text="关闭" clear-text="清除" current-text="今天" disabled/>
+  <span class="input-group-btn">
+    <button type="button" class="btn btn-default" ng-click="openDatePickerPopup()">
+      日历
+    </button>
+  </span>
 </div>
