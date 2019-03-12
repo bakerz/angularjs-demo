@@ -1,22 +1,22 @@
 'use strict';
 
 var gulp = require('gulp'),
-  bs = require('browser-sync').create(),
-  minifyHtml = require('gulp-minify-html'),
-  ngTemplateCache = require('gulp-angular-templatecache'),
-  sass = require('gulp-sass'),
-  csso = require('gulp-csso'),
-  wiredep = require('wiredep').stream,
-  inject = require('gulp-inject'),
-  rev = require('gulp-rev'),
-  revReplace = require('gulp-rev-replace'),
-  filter = require('gulp-filter'),
-  del = require('del'),
-  concat = require('gulp-concat'),
-  uglify = require('gulp-uglify'),
-  useref = require('gulp-useref'),
-  ngAnnotate = require('gulp-ng-annotate'),
-  plumber = require('gulp-plumber'),
+  bs = require('browser-sync').create(),                    // 浏览器同步工具
+  minifyHtml = require('gulp-minify-html'),                 // HTML 文件压缩
+  ngTemplateCache = require('gulp-angular-templatecache'),  // 将html模板页面 以angularjs的方式 压缩并缓存
+  sass = require('gulp-sass'),                              // 编译 sass
+  csso = require('gulp-csso'),                              // 压缩、优化css
+  wiredep = require('wiredep').stream,                      // 将js、css文件自动插入到html中
+  inject = require('gulp-inject'),                          // 把css，js这些静态文件注入到html文件中
+  rev = require('gulp-rev'),                                // 给静态资源文件名添加hash值
+  revReplace = require('gulp-rev-replace'),                 // 重写被gulp-rev重命名的文件名
+  filter = require('gulp-filter'),                          // 在虚拟文件流中过滤文件
+  del = require('del'),                                     // 替代gulp-clean,删除文件
+  concat = require('gulp-concat'),                          // 合并文件
+  uglify = require('gulp-uglify'),                          // 压缩js文件
+  useref = require('gulp-useref'),                          // 通过插入特定的标签，用于标示gulp-useref要处理的资源。解析构建块在HTML文件来代替引用未经优化的脚本和样式表。
+  ngAnnotate = require('gulp-ng-annotate'),                 // 处理angularjs依赖注入
+  plumber = require('gulp-plumber'),                        // 可以阻止 gulp 插件发生错误导致进程退出并输出错误日志
   reload = bs.reload;
 
 //=========== dev start ===========\\
