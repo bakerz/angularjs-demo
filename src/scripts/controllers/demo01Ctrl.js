@@ -24,6 +24,10 @@ angular.module('myApp').controller('demo01Ctrl',
       name: 'option4'
     }];
 
+    $scope.con = function () {
+      console.log($scope.sel)
+    };
+
     $scope.policyList = [{
       'rule': 'ACCESS_IP_RANGE',
       'ruleValue': '172.0.0.1'
@@ -87,5 +91,49 @@ angular.module('myApp').controller('demo01Ctrl',
     },3000);
 
     $scope.selectedColor3 = $scope.colors[$scope.colors.length-1].name;
+
+    // ===== 全选 =====
+    $scope.arr = [{
+      name: 'zhangsan',
+      age: 12,
+      isSelected: false
+    }, {
+      name: 'lisi',
+      age: 22,
+      isSelected: false
+    }, {
+      name: 'wangwu',
+      age: 18,
+      isSelected: false
+    }];
+
+    /**
+     * 全选
+     */
+    var arrSelected = [];
+    $scope.selectAll = function () {
+      arrSelected.length = 0;
+      angular.forEach($scope.arr, function (item) {
+        item.isSelected = $scope.isSelectedAll;
+
+        if ($scope.isSelectedAll) {
+          arrSelected.push(item)
+        }
+      });
+
+      console.log(arrSelected)
+    };
+
+    // 单选
+    $scope.selectItem = function () {
+      arrSelected.length = 0;
+      angular.forEach($scope.arr, function (item) {
+        if (item.isSelected) {
+          arrSelected.push(item)
+        }
+      });
+
+      console.log(arrSelected)
+    }
   }
 );
