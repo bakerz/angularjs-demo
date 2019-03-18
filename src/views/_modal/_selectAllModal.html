@@ -1,0 +1,23 @@
+<section id="select-all">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>
+        全选
+        <input type="checkbox" ng-model="isSelectedAll" ng-click="selectAll()">
+      </th>
+      <th>姓名</th>
+      <th>年龄</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in arr">
+      <td>
+        <input type="checkbox" ng-model="item.isSelected" ng-click="item.isSelected" ng-change="selectItem()">
+      </td>
+      <td>{{item.name}}</td>
+      <td>{{item.age}}</td>
+    </tr>
+    </tbody>
+  </table>
+</section>

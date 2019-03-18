@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('myApp').controller('demo01Ctrl',
-  function ($scope,$interval) {
+  function ($scope,$interval, $uibModal) {
     $scope.colors = [{name:'black', shade:'dark'},
       {name:'white', shade:'light'},
       {name:'red', shade:'dark'},
@@ -134,6 +134,43 @@ angular.module('myApp').controller('demo01Ctrl',
       });
 
       console.log(arrSelected)
+    };
+
+    $scope.openModal = function () {
+      $uibModal.open({
+        templateUrl: 'views/_modal/_selectAllModal.html',
+        scope: $scope,
+        backdrop: 'static',
+        controller: function ($scope) {
+          var arrSelected = [];
+          $scope.selectAll = function () {
+            console.log($scope.isSelectedAll);
+
+            arrSelected.length = 0;
+            angular.forEach($scope.arr, function (item) {
+              item.isSelected = $scope.isSelectedAll;
+
+              if ($scope.isSelectedAll) {
+                arrSelected.push(item)
+              }
+            });
+
+            console.log(arrSelected)
+          };
+
+          // 单选
+          $scope.selectItem = function () {
+            arrSelected.length = 0;
+            angular.forEach($scope.arr, function (item) {
+              if (item.isSelected) {
+                arrSelected.push(item)
+              }
+            });
+
+            console.log(arrSelected)
+          };
+        }
+      })
     }
   }
 );
